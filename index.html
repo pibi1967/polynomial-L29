@@ -46,8 +46,14 @@
       margin: 0 0 8px;
     }
 
+    header h2 {
+      margin: 4px 0 0;
+      font-size: 1.25rem;
+      color: #374151;
+    }
+
     header p.subtitle {
-      margin: 0;
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 0.95rem;
     }
@@ -154,7 +160,7 @@
       font-size: 0.9rem;
     }
 
-   pre code {
+    pre code {
       background: transparent;
       color: inherit;
       padding: 0;
@@ -208,6 +214,49 @@
     a:hover {
       text-decoration: underline;
     }
+
+    /* Prime table styling */
+    .prime-table-wrapper {
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+
+    .prime-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .prime-table thead {
+      background: #e5e7eb;
+    }
+
+    .prime-table th,
+    .prime-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .prime-table tbody tr:nth-child(odd) {
+      background: #f9fafb;
+    }
+
+    .prime-table tbody tr:nth-child(even) {
+      background: #ffffff;
+    }
+
+    .prime-table th {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .is-prime {
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -233,39 +282,38 @@
           primality is tested on the absolute value <code>|f(n)|</code>.
         </p>
 
-<div class="section">
-  <h3>Category: monic cubic prime-generating polynomial</h3>
-  <p>
-    The polynomial
-  </p>
+        <div class="section">
+          <h3>Category: monic cubic prime-generating polynomial</h3>
+          <p>
+            The polynomial
+          </p>
 
-  <div class="math-block">
-    f(n) = n³ − 35n² + 308n + 73
-  </div>
+          <div class="math-block">
+            f(n) = n³ − 35n² + 308n + 73
+          </div>
 
-  <p>
-    is a <strong>monic cubic polynomial</strong>, since the leading coefficient (the
-    coefficient of <code>n³</code>) is equal to <strong>1</strong>.  
-    This places it within the class of
-    <strong>monic cubic prime-generating polynomials</strong>, a mathematically
-    significant and more restrictive family compared to non-monic cubic polynomials.
-  </p>
+          <p>
+            is a <strong>monic cubic polynomial</strong>, since the leading coefficient (the
+            coefficient of <code>n³</code>) is equal to <strong>1</strong>.  
+            This places it within the class of
+            <strong>monic cubic prime-generating polynomials</strong>, a mathematically
+            significant and more restrictive family compared to non-monic cubic polynomials.
+          </p>
 
-  <p>
-    In this stricter category, achieving a long consecutive prime run is notably
-    difficult. The Borghi Polynomial attains a run length of:
-  </p>
+          <p>
+            In this stricter category, achieving a long consecutive prime run is notably
+            difficult. The Borghi Polynomial attains a run length of:
+          </p>
 
-  <p class="math-block">
-    L = 29
-  </p>
+          <p class="math-block">
+            L = 29
+          </p>
 
-  <p>
-    making it one of the longest documented prime-generating runs for a monic cubic
-    polynomial.
-  </p>
-</div>
-
+          <p>
+            making it one of the longest documented prime-generating runs for a monic cubic
+            polynomial.
+          </p>
+        </div>
         
         <div class="section">
           <h3>Formal statement of the record</h3>
@@ -340,14 +388,13 @@
           </div>
         </div>
 
-        
         <div class="section">
           <h3>Computational verification (sketch)</h3>
           <p>
             The record was established by exhaustive evaluation of <code>f(n)</code> for
             consecutive integers and deterministic primality tests up to the first
             composite value. No probabilistic methods (e.g. Miller–Rabin with bases)
-            were needed for this range; simple trial division up to ⌊√x⌋ is sufficient.
+            were needed for this range; simple trial division up to sqrt(x) is sufficient.
           </p>
           <p>
             The computation is lightweight and can be reproduced on standard hardware
@@ -406,10 +453,10 @@ print("Run length L =", L)</code></pre>
           <h3>Official reference</h3>
           <div class="citation-box">
             <span class="pill">Zenodo record</span><br/>
-            P. Borghi, <em>"A Prime-Generating Cubic Polynomial with Run Length L = 29"</em>,
+            P. Borghi, <em>"A Prime-Generating Monic Cubic Polynomial with Run Length L = 29"</em>,
             Zenodo, 2025.<br/>
             Record: <a href="https://zenodo.org/records/17843872" target="_blank" rel="noopener">
-              https://zenodo.org/records/17843252
+              https://zenodo.org/records/17843872
             </a>
           </div>
         </div>
@@ -418,7 +465,7 @@ print("Run length L =", L)</code></pre>
           <h3>How to cite</h3>
           <p>Suggested citation (APA-style):</p>
           <pre><code>Borghi, P. (2025). A Prime-Generating Monic Cubic Polynomial 
-with Run Length L = 29. Zenodo. https://zenodo.org/records/17843252</code></pre>
+with Run Length L = 29. Zenodo. https://zenodo.org/records/17843872</code></pre>
         </div>
 
         <div class="section">
@@ -439,4 +486,3 @@ with Run Length L = 29. Zenodo. https://zenodo.org/records/17843252</code></pre>
   </div>
 </body>
 </html>
-
