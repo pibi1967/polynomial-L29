@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Record ufficiale: Borghi Polynomial (L = 29)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Official record page for the Borghi Polynomial, a cubic prime-generating polynomial with run length L = 29.">
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card-bg: #ffffff;
+      --accent: #1a73e8;
+      --accent-soft: #e3f2fd;
+      --text: #222222;
+      --muted: #666666;
+      --border: #dddddd;
+      --mono: "Fira Code", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(circle at top, #eef3ff 0, #f7f7fb 45%, #f7f7fb 100%);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0 0 8px;
+    }
+
+    header p.subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .facts {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .facts li {
+      margin-bottom: 6px;
+    }
+
+    .facts span.label {
+      font-weight: 600;
+      color: var(--muted);
+      width: 110px;
+      display: inline-block;
+    }
+
+    .math-block {
+      font-family: var(--mono);
+      background: #111827;
+      color: #f9fafb;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin: 8px 0 12px;
+    }
+
+    .section {
+      margin-top: 24px;
+    }
+
+    .section h3 {
+      font-size: 1.05rem;
+      margin: 0 0 6px;
+    }
+
+    .section p {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: #f1f5f9;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      font-family: var(--mono);
+      background: #0b1120;
+      color: #e5e7eb;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      line-height: 1.4;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .citation-box {
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px dashed #d4d4d8;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="badge">Prime-generating polynomial · Official record</div>
+      <h1>Record ufficiale: <em>Borghi Polynomial</em> (L = 29)</h1>
+      <p class="subtitle">
+        A cubic prime-generating polynomial with 29 consecutive primes starting at n = 0.
+      </p>
+    </header>
+
+    <div class="layout">
+      <!-- Left column: main description -->
+      <div class="card">
+        <h2>The polynomial</h2>
+        <div class="math-block">
+          f(n) = n³ − 35n² + 308n + 73
+        </div>
+        <p>
+          The <strong>Borghi Polynomial</strong> is a cubic integer polynomial that produces a run of
+          <strong>29 consecutive prime values</strong> when evaluated at
+          consecutive integers starting at <code>n = 0</code>. As usual in this context,
+          primality is tested on the absolute value <code>|f(n)|</code>.
+        </p>
+
+        <div class="section">
+          <h3>Formal statement of the record</h3>
+          <p>
+            Let
+            <code>f(n) = n³ − 35n² + 308n + 73</code>.
+            Define the run length <code>L</code> as the largest integer such that
+            <code>|f(n)|</code> is prime for all integers <code>n</code> with
+            <code>0 ≤ n ≤ L − 1</code>.
+          </p>
+          <p>
+            For the Borghi Polynomial we have:
+          </p>
+          <p class="math-block">
+            L = 29
+          </p>
+          <p>
+            i.e. <code>|f(n)|</code> is prime for all <code>n = 0, 1, 2, …, 28</code>, and the first
+            composite value occurs at <code>n = 29</code>.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Computational verification (sketch)</h3>
+          <p>
+            The record was established by exhaustive evaluation of <code>f(n)</code> for
+            consecutive integers and deterministic primality tests up to the first
+            composite value. No probabilistic methods (e.g. Miller–Rabin with bases)
+            were needed for this range; simple trial division up to ⌊√x⌋ is sufficient.
+          </p>
+          <p>
+            The computation is lightweight and can be reproduced on standard hardware
+            in a fraction of a second.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Reproducibility: minimal Python snippet</h3>
+          <p>Any reader can verify the run length with the following code:</p>
+          <pre><code>import math
+
+def is_prime(n):
+    if n &lt; 2:
+        return False
+    if n % 2 == 0:
+        return n == 2
+    r = int(math.isqrt(n))
+    for k in range(3, r + 1, 2):
+        if n % k == 0:
+            return False
+    return True
+
+def f(n):
+    return n**3 - 35*n**2 + 308*n + 73
+
+L = 0
+for n in range(100):  # safety upper bound
+    if is_prime(abs(f(n))):
+        L += 1
+    else:
+        break
+
+print("Run length L =", L)</code></pre>
+          <p>
+            Running this program will output <code>Run length L = 29</code>, confirming
+            the claimed record.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right column: record summary & citation -->
+      <div class="card">
+        <h2>Record summary</h2>
+        <ul class="facts">
+          <li><span class="label">Name</span> Borghi Polynomial</li>
+          <li><span class="label">Degree</span> 3 (cubic)</li>
+          <li><span class="label">Form</span> f(n) = n³ − 35n² + 308n + 73</li>
+          <li><span class="label">Coefficients</span> a = −35, b = 308, c = 73</li>
+          <li><span class="label">Run length</span> <strong>L = 29</strong></li>
+          <li><span class="label">Domain</span> consecutive n ≥ 0</li>
+          <li><span class="label">Primality</span> tested on |f(n)|</li>
+        </ul>
+
+        <div class="section">
+          <h3>Official reference</h3>
+          <div class="citation-box">
+            <span class="pill">Zenodo record</span><br/>
+            P. Borghi, <em>"A Prime-Generating Cubic Polynomial with Run Length L = 29"</em>,
+            Zenodo, 2025.<br/>
+            Record: <a href="https://zenodo.org/records/17843252" target="_blank" rel="noopener">
+              https://zenodo.org/records/17843252
+            </a>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>How to cite</h3>
+          <p>Suggested citation (APA-style):</p>
+          <pre><code>Borghi, P. (2025). A Prime-Generating Cubic Polynomial 
+with Run Length L = 29. Zenodo. https://zenodo.org/records/17843252</code></pre>
+        </div>
+
+        <div class="section">
+          <h3>Author</h3>
+          <p>
+            <strong>Paolo Borghi</strong><br/>
+            Independent researcher in number theory and prime-generating polynomials.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      This page documents the official record status of the Borghi Polynomial (L = 29).<br/>
+      Last updated: 2025.
+    </footer>
+  </div>
+</body>
+</html>
+
