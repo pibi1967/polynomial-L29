@@ -147,6 +147,12 @@
       font-size: 0.9rem;
     }
 
+   pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    
     pre {
       font-family: var(--mono);
       background: #0b1120;
@@ -157,16 +163,6 @@
       overflow-x: auto;
       line-height: 1.4;
     }
-    
-    pre *::selection {
-     background: none !important;
-     color: #ffffff !important;
-    }
-
-    pre::selection {
-     background: none !important;
-     color: #ffffff !important;
-     }
 
     .pill {
       display: inline-block;
