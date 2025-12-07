@@ -405,30 +405,70 @@
         <div class="section">
           <h3>Reproducibility: minimal Python snippet</h3>
           <p>Any reader can verify the run length with the following code:</p>
-          <pre><code>import math
+          <pre><code>Test di primalità per la terzina "regina" cubica monica:
 
-def is_prime(n):
-    if n &lt; 2:
+    f(n) = n^3 - 35 n^2 + 308 n + 73
+
+Lo script:
+- calcola f(n) per n = 0, 1, 2, ...
+- verifica se f(n) è primo
+- si ferma al primo composito
+- stampa tutti i valori primi trovati e la lunghezza L
+"""
+
+# Coefficienti della terzina regina
+A = -35
+B = 308
+C = 73
+
+def is_prime(n: int) -> bool:
+    """Ritorna True se n è primo, False altrimenti (test deterministico per n 'normali')."""
+    if n < 2:
         return False
     if n % 2 == 0:
         return n == 2
-    r = int(math.isqrt(n))
-    for k in range(3, r + 1, 2):
-        if n % k == 0:
+    # prova i divisori dispari fino alla radice quadrata
+    d = 3
+    while d * d <= n:
+        if n % d == 0:
             return False
+        d += 2
     return True
 
-def f(n):
-    return n**3 - 35*n**2 + 308*n + 73
+def f(n: int) -> int:
+    """Polinomio cubico monico f(n) = n^3 + A n^2 + B n + C."""
+    return n**3 + A*n**2 + B*n + C
 
-L = 0
-for n in range(100):  # safety upper bound
-    if is_prime(abs(f(n))):
-        L += 1
-    else:
-        break
+def main():
+    primi = []
+    n = 0
 
-print("Run length L =", L)</code></pre>
+    while True:
+        v = f(n)
+        if v < 2 or not is_prime(v):
+            # abbiamo trovato il primo composito: interrompiamo
+            break
+        primi.append((n, v))
+        n += 1
+
+    L = len(primi)
+
+    print("Terzina regina:")
+    print(f"  (a, b, c) = ({A}, {B}, {C})")
+    print("\nValori primi generati a partire da n = 0:\n")
+
+    for n_val, p_val in primi:
+        print(f"n = {n_val:2d}  ->  f(n) = {p_val}")
+
+    print("\nLunghezza della sequenza di primi consecutivi (L):", L)
+
+    # Mostra anche il primo composito subito dopo la sequenza
+    v_comp = f(L)
+    print(f"\nPrimo valore composito dopo la sequenza:")
+    print(f"n = {L}  ->  f(n) = {v_comp}")
+
+if __name__ == "__main__":
+    main()</code></pre>
           <p>
             Running this program will output <code>Run length L = 29</code>, confirming
             the claimed record.
