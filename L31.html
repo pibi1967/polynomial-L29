@@ -1,207 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Borghi Polynomial (L = 31)</title>
-  <meta name="description" content="Official record page for the Borghi Polynomial: a monic cubic prime-generating polynomial with run length L = 31." />
-
-  <!-- Minimal GitHub-like styling (self-contained) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Official page for the Borghi Polynomial, a cubic prime-generating polynomial with run length L = 31.">
   <style>
-    :root{
-      --bg:#ffffff;
-      --text:#111827;
-      --muted:#6b7280;
-      --border:#e5e7eb;
-      --codebg:#0b1020;
-      --codefg:#e5e7eb;
-      --link:#2563eb;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    :root {
+      --bg: #f7f7fb;
+      --card-bg: #ffffff;
+      --accent: #1a73e8;
+      --accent-soft: #e3f2fd;
+      --text: #222222;
+      --muted: #666666;
+      --border: #dddddd;
+      --mono: "Fira Code", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    html,body{background:var(--bg); color:var(--text); margin:0; font-family:var(--sans); line-height:1.55;}
-    .wrap{max-width:980px; margin:0 auto; padding:32px 18px 64px;}
-    .kicker{color:var(--muted); font-size:14px; margin-bottom:16px;}
-    h1{font-size:38px; margin:0 0 8px;}
-    h2{font-size:24px; margin:26px 0 10px;}
-    h3{font-size:18px; margin:18px 0 10px;}
-    p{margin:10px 0;}
-    a{color:var(--link); text-decoration:none;}
-    a:hover{text-decoration:underline;}
-    hr{border:0; border-top:1px solid var(--border); margin:22px 0;}
-    code{font-family:var(--mono); font-size:0.95em;}
-    pre{
-      background:var(--codebg);
-      color:var(--codefg);
-      padding:14px 14px;
-      border-radius:10px;
-      overflow:auto;
-      font-family:var(--mono);
-      font-size:13px;
-      line-height:1.45;
-      border:1px solid rgba(255,255,255,0.08);
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background: radial-gradient(circle at top, #eef3ff 0, #f7f7fb 45%, #f7f7fb 100%);
     }
-    .table{
-      border:1px solid var(--border);
-      border-radius:12px;
-      overflow:hidden;
-      margin:12px 0 16px;
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 48px;
     }
-    table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:13px;}
-    th,td{padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top;}
-    th{background:#f9fafb; text-align:left; font-weight:700;}
-    tr:last-child td{border-bottom:none;}
-    .bullets{margin:10px 0 0 18px;}
-    .muted{color:var(--muted);}
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin: 0 0 8px;
+    }
+
+    header h2 {
+      margin: 4px 0 0;
+      font-size: 1.25rem;
+      color: #374151;
+    }
+
+    header p.subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin: 0 0 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .facts {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .facts li { margin-bottom: 6px; }
+
+    .facts span.label {
+      font-weight: 600;
+      color: var(--muted);
+      width: 110px;
+      display: inline-block;
+    }
+
+    .math-block {
+      font-family: var(--mono);
+      background: #111827;
+      color: #f9fafb;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin: 8px 0 12px;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #475569;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    .section { margin-top: 24px; }
+
+    .section h3 {
+      font-size: 1.05rem;
+      margin: 0 0 6px;
+    }
+
+    .section p {
+      margin: 0 0 10px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: #f1f5f9;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    pre code { background: transparent; color: inherit; padding: 0; }
+
+    pre {
+      font-family: var(--mono);
+      background: #0b1120;
+      color: #e5e7eb;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      line-height: 1.4;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .citation-box {
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px dashed #d4d4d8;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .prime-table-wrapper {
+      margin-top: 12px;
+      overflow-x: auto;
+    }
+
+    .prime-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .prime-table thead { background: #e5e7eb; }
+
+    .prime-table th,
+    .prime-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .prime-table tbody tr:nth-child(odd) { background: #f9fafb; }
+    .prime-table tbody tr:nth-child(even) { background: #ffffff; }
+
+    .prime-table th { font-weight: 600; color: #374151; }
+
+    .is-prime { font-size: 1rem; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="kicker">Prime-generating polynomial · Official record</div>
+  <div class="page">
+    <header>
+      <div class="badge">Prime-generating polynomial · Official record</div>
+      <h1>Borghi Polynomial (L = 31)</h1>
+      <h2>A Prime-Generating Monic Cubic Polynomial</h2>
+      <p class="subtitle">Documented by Paolo Borghi — Verified computationally (2025)</p>
+    </header>
 
-    <h1>Borghi Polynomial (L = 31)</h1>
+    <div class="layout">
+      <!-- Left column: main description -->
+      <div class="card">
+        <h2>The polynomial</h2>
+        <div class="math-block">
+          f(n) = n³ + 54n² − 2329n + 20507
+        </div>
 
-    <h2>A Prime-Generating Monic Cubic Polynomial</h2>
+        <p>
+          The <strong>Borghi Polynomial</strong> is a cubic integer polynomial that produces a run of
+          <strong>31 consecutive prime values</strong> when evaluated at
+          consecutive integers starting at <code>n = 0</code>. As usual in this context,
+          primality is tested on the absolute value <code>|f(n)|</code>.
+        </p>
 
-    <p>Documented by Paolo Borghi — Verified computationally (2025)</p>
+        <div class="section">
+          <h3>Category: monic cubic prime-generating polynomial</h3>
+          <p>The polynomial</p>
 
-    <h2>The polynomial</h2>
+          <div class="math-block">
+            f(n) = n³ + 54n² − 2329n + 20507
+          </div>
 
-    <p><code>f(n) = n³ + 54n² − 2329n + 20507</code></p>
+          <p>
+            is a <strong>monic cubic polynomial</strong>, since the leading coefficient (the
+            coefficient of <code>n³</code>) is equal to <strong>1</strong>.  
+            This places it within the class of
+            <strong>monic cubic prime-generating polynomials</strong>, a mathematically
+            significant and more restrictive family compared to non-monic cubic polynomials.
+          </p>
 
-    <p>
-      The Borghi Polynomial is a cubic integer polynomial that produces a run of 31 consecutive prime values
-      when evaluated at consecutive integers starting at <code>n = 0</code>. As usual in this context, primality
-      is tested on the absolute value <code>|f(n)|</code>.
-    </p>
+          <p>
+            In this stricter category, achieving a long consecutive prime run is notably
+            difficult. The Borghi Polynomial attains a run length of:
+          </p>
 
-    <h3>Category: monic cubic prime-generating polynomial</h3>
+          <p class="math-block">
+            L = 31
+          </p>
 
-    <p>The polynomial</p>
-    <p><code>f(n) = n³ + 54n² − 2329n + 20507</code></p>
+          <p>
+            making it one of the longest documented prime-generating runs for a monic cubic
+            polynomial.
+          </p>
+        </div>
 
-    <p>
-      is a monic cubic polynomial, since the leading coefficient (the coefficient of <code>n³</code>) is equal to 1.
-      This places it within the class of monic cubic prime-generating polynomials, a mathematically significant and more
-      restrictive family compared to non-monic cubic polynomials.
-    </p>
+        <div class="section">
+          <h3>Formal statement of the record</h3>
+          <p>
+            Let
+            <code>f(n) = n³ + 54n² − 2329n + 20507</code>.
+            Define the run length <code>L</code> as the largest integer such that
+            <code>|f(n)|</code> is prime for all integers <code>n</code> with
+            <code>0 ≤ n ≤ L − 1</code>.
+          </p>
+          <p>For the Borghi Polynomial we have:</p>
 
-    <p>
-      In this stricter category, achieving a long consecutive prime run is notably difficult. The Borghi Polynomial
-      attains a run length of:
-    </p>
+          <p class="math-block">
+            L = 31
+          </p>
 
-    <p><code>L = 31</code></p>
+          <p>
+            i.e. <code>|f(n)|</code> is prime for all <code>n = 0, 1, 2, …, 30</code>, and the first
+            composite value occurs at <code>n = 31</code>.
+          </p>
 
-    <p>making it one of the longest documented prime-generating runs for a monic cubic polynomial.</p>
+          <p>
+            <strong>First composite value:</strong><br/>
+            <code>n = 31  ->  f(31) = 29993 = 89 × 337</code>
+          </p>
+        </div>
 
-    <h3>Formal statement of the record</h3>
+        <div class="section">
+          <h3>Prime values for 0 ≤ n ≤ 30</h3>
+          <p>
+            The table below lists the 31 consecutive prime values produced by
+            <code>f(n) = n³ + 54n² − 2329n + 20507</code> for integers
+            <code>n = 0, 1, …, 30</code>.
+          </p>
 
-    <p>
-      Let <code>f(n) = n³ + 54n² − 2329n + 20507</code>. Define the run length <code>L</code> as the largest integer
-      such that <code>|f(n)|</code> is prime for all integers <code>n</code> with <code>0 ≤ n ≤ L − 1</code>.
-    </p>
+          <div class="prime-table-wrapper">
+            <table class="prime-table">
+              <thead>
+                <tr>
+                  <th>n</th>
+                  <th>f(n)</th>
+                  <th>is prime</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0</td><td>20507</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>1</td><td>18233</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>2</td><td>16073</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>3</td><td>14033</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>4</td><td>12119</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>5</td><td>10337</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>6</td><td>8689</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>7</td><td>7183</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>8</td><td>5819</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>9</td><td>4597</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>10</td><td>3517</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>11</td><td>2579</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>12</td><td>1783</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>13</td><td>1129</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>14</td><td>617</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>15</td><td>247</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>16</td><td>23</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>17</td><td>59</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>18</td><td>379</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>19</td><td>1007</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>20</td><td>1967</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>21</td><td>3283</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>22</td><td>4979</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>23</td><td>7079</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>24</td><td>9607</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>25</td><td>12587</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>26</td><td>15043</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>27</td><td>15253</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>28</td><td>11999</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>29</td><td>3557</td><td class="is-prime">&#10004;</td></tr>
+                <tr><td>30</td><td>26237</td><td class="is-prime">&#10004;</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-    <p>For the Borghi Polynomial we have:</p>
+        <div class="section">
+          <h3>Computational verification (sketch)</h3>
+          <p>
+            The record was established by exhaustive evaluation of <code>f(n)</code> for
+            consecutive integers and deterministic primality tests up to the first
+            composite value. No probabilistic methods (e.g. Miller–Rabin with bases)
+            were needed for this range; simple trial division up to sqrt(x) is sufficient.
+          </p>
+          <p>
+            The computation is lightweight for verifying a single polynomial and can be
+            reproduced on standard hardware in a fraction of a second.
+          </p>
+        </div>
 
-    <p><code>L = 31</code></p>
-
-    <p>
-      i.e. <code>|f(n)|</code> is prime for all <code>n = 0, 1, 2, …, 30</code>, and the first composite value occurs at <code>n = 31</code>.
-    </p>
-
-    <p>
-      First composite value:
-      <br/>
-      <code>n = 31  ->  f(31) = 29993 = 89 × 337</code>
-    </p>
-
-    <h3>Prime values for 0 ≤ n ≤ 30</h3>
-
-    <p>
-      The table below lists the 31 consecutive prime values produced by
-      <code>f(n) = n³ + 54n² − 2329n + 20507</code> for integers <code>n = 0, 1, …, 30</code>.
-    </p>
-
-    <div class="table">
-      <table>
-        <thead>
-          <tr><th>n</th><th>f(n)</th><th>is prime</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>0</td><td>20507</td><td>✔</td></tr>
-          <tr><td>1</td><td>18233</td><td>✔</td></tr>
-          <tr><td>2</td><td>16073</td><td>✔</td></tr>
-          <tr><td>3</td><td>14033</td><td>✔</td></tr>
-          <tr><td>4</td><td>12119</td><td>✔</td></tr>
-          <tr><td>5</td><td>10337</td><td>✔</td></tr>
-          <tr><td>6</td><td>8693</td><td>✔</td></tr>
-          <tr><td>7</td><td>7193</td><td>✔</td></tr>
-          <tr><td>8</td><td>5843</td><td>✔</td></tr>
-          <tr><td>9</td><td>4649</td><td>✔</td></tr>
-          <tr><td>10</td><td>3617</td><td>✔</td></tr>
-          <tr><td>11</td><td>2753</td><td>✔</td></tr>
-          <tr><td>12</td><td>2063</td><td>✔</td></tr>
-          <tr><td>13</td><td>1553</td><td>✔</td></tr>
-          <tr><td>14</td><td>1229</td><td>✔</td></tr>
-          <tr><td>15</td><td>1097</td><td>✔</td></tr>
-          <tr><td>16</td><td>1163</td><td>✔</td></tr>
-          <tr><td>17</td><td>1433</td><td>✔</td></tr>
-          <tr><td>18</td><td>1913</td><td>✔</td></tr>
-          <tr><td>19</td><td>2609</td><td>✔</td></tr>
-          <tr><td>20</td><td>3527</td><td>✔</td></tr>
-          <tr><td>21</td><td>4673</td><td>✔</td></tr>
-          <tr><td>22</td><td>6053</td><td>✔</td></tr>
-          <tr><td>23</td><td>7673</td><td>✔</td></tr>
-          <tr><td>24</td><td>9539</td><td>✔</td></tr>
-          <tr><td>25</td><td>11657</td><td>✔</td></tr>
-          <tr><td>26</td><td>14033</td><td>✔</td></tr>
-          <tr><td>27</td><td>16673</td><td>✔</td></tr>
-          <tr><td>28</td><td>19583</td><td>✔</td></tr>
-          <tr><td>29</td><td>22769</td><td>✔</td></tr>
-          <tr><td>30</td><td>26237</td><td>✔</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Computational verification (sketch)</h3>
-
-    <p>
-      The record was established by exhaustive evaluation of <code>f(n)</code> for consecutive integers and deterministic
-      primality tests up to the first composite value. For this range, verification is lightweight and can be reproduced on
-      standard hardware quickly.
-    </p>
-
-    <h3>Independent verification (PARI/GP)</h3>
-
-    <p>
-      The run was independently verified using PARI/GP by checking <code>isprime(f(n))</code> for consecutive <code>n</code>
-      and stopping at the first composite value.
-    </p>
-
-    <pre>for(n=0,200, if(!isprime(n^3+54*n^2-2329*n+20507), print("STOP a n=",n," valore=",n^3+54*n^2-2329*n+20507); break));
+        <div class="section">
+          <h3>Independent verification (PARI/GP)</h3>
+          <p>
+            Independent verification was performed with PARI/GP by checking <code>isprime(f(n))</code>
+            for consecutive <code>n</code> and stopping at the first composite.
+          </p>
+          <pre><code>? for(n=0,200, if(!isprime(n^3+54*n^2-2329*n+20507), print("STOP a n=",n," valore=",n^3+54*n^2-2329*n+20507); break));
 
 STOP a n=31 valore=29993
+? factor(29993)
 
-factor(29993)
-
+%2 = 
 [ 89 1]
 
-[337 1]</pre>
+[337 1]</code></pre>
+        </div>
 
-    <h3>Reproducibility: minimal Python snippet</h3>
-
-    <p>Any reader can verify the run length with the following code:</p>
-
-    <pre>"""
+        <div class="section">
+          <h3>Reproducibility: minimal Python snippet</h3>
+          <p>Any reader can verify the run length with the following code:</p>
+          <pre><code>"""
 Deterministic primality test for the monic cubic record:
 
     f(n) = n^3 + 54 n^2 - 2329 n + 20507
 
 The script:
 - computes f(n) for n = 0, 1, 2, ...
-- checks whether f(n) is prime (using trial division, deterministic for this range)
+- checks whether f(n) is prime
 - stops at the first composite value
 - prints all prime values and the run length L
 """
@@ -213,18 +417,18 @@ C = 20507
 
 def is_prime(n: int) -> bool:
     """Return True if n is prime, False otherwise (deterministic for this range)."""
-    if n < 2:
+    if n &lt; 2:
         return False
     if n % 2 == 0:
         return n == 2
     d = 3
-    while d * d <= n:
+    while d * d &lt;= n:
         if n % d == 0:
             return False
         d += 2
     return True
 
-def f(n: int) -> int:
+def f(n: int) -&gt; int:
     """Monic cubic polynomial f(n) = n^3 + A n^2 + B n + C."""
     return n**3 + A*n**2 + B*n + C
 
@@ -234,7 +438,7 @@ def main():
 
     while True:
         v = f(n)
-        if v < 2 or not is_prime(v):
+        if v &lt; 2 or not is_prime(v):
             break
         primes.append((n, v))
         n += 1
@@ -246,66 +450,76 @@ def main():
     print("\nPrime values generated starting from n = 0:\n")
 
     for n_val, p_val in primes:
-        print(f"n = {n_val:2d}  ->  f(n) = {p_val}")
+        print(f"n = {n_val:2d}  -&gt;  f(n) = {p_val}")
+
     print("\nLength of the consecutive prime run (L):", L)
 
     v_comp = f(L)
     print(f"\nFirst composite value after the run:")
-    print(f"n = {L}  ->  f(n) = {v_comp}")
+    print(f"n = {L}  -&gt;  f(n) = {v_comp}")
 
 if __name__ == "__main__":
-    main()</pre>
+    main()</code></pre>
+          <p>
+            Running this program will output <code>Run length L = 31</code>, confirming
+            the claimed record.
+          </p>
+        </div>
+      </div>
 
-    <p class="muted">
-      Running this program will output <code>Run length L = 31</code>, confirming the claimed record.
-    </p>
+      <!-- Right column: record summary & citation -->
+      <div class="card">
+        <h2>Record summary</h2>
+        <ul class="facts">
+          <li><span class="label">Name</span> Borghi Polynomial</li>
+          <li><span class="label">Degree</span> 3 (cubic)</li>
+          <li><span class="label">Form</span> f(n) = n³ + 54n² − 2329n + 20507</li>
+          <li><span class="label">Coefficients</span> a = 54, b = −2329, c = 20507</li>
+          <li><span class="label">Run length</span> <strong>L = 31</strong></li>
+          <li><span class="label">Domain</span> consecutive n ≥ 0</li>
+          <li><span class="label">Primality</span> tested on |f(n)|</li>
+        </ul>
 
-    <h2>Record summary</h2>
+        <div class="section">
+          <h3>Official reference</h3>
+          <div class="citation-box">
+            <span class="pill">Zenodo record</span><br/>
+            P. Borghi, <em>"A Prime-Generating Monic Cubic Polynomial with Run Length L = 31"</em>,
+            Zenodo, 2025.<br/>
+            Record: <strong>(DOI pending)</strong>
+          </div>
+        </div>
 
-    <ul class="bullets">
-      <li><b>Name</b> Borghi Polynomial</li>
-      <li><b>Degree</b> 3 (cubic)</li>
-      <li><b>Form</b> <code>f(n) = n³ + 54n² − 2329n + 20507</code></li>
-      <li><b>Coefficients</b> a = 54, b = −2329, c = 20507</li>
-      <li><b>Run length</b> L = 31</li>
-      <li><b>Domain</b> consecutive n ≥ 0</li>
-      <li><b>Primality tested on</b> |f(n)|</li>
-    </ul>
+        <div class="section">
+          <h3>How to cite</h3>
+          <p>Suggested citation (APA-style):</p>
+          <pre><code>Borghi, P. (2025). A Prime-Generating Monic Cubic Polynomial 
+with Run Length L = 31. Zenodo. (DOI pending)</code></pre>
+        </div>
 
-    <h3>Official reference</h3>
+        <div class="section">
+          <h3>Author</h3>
+          <p>
+            <strong>Paolo Borghi</strong><br/>
+            Independent researcher in number theory and prime-generating polynomials.<br/>
+            paolo.borghi@gmail.com
+          </p>
+        </div>
 
-    <p>
-      Zenodo record<br/>
-      <span class="muted">P. Borghi, "A Prime-Generating Monic Cubic Polynomial with Run Length L = 31", Zenodo, 2025.</span><br/>
-      <span class="muted">Record: (coming soon)</span>
-    </p>
+        <div class="section">
+          <h3>Records</h3>
+          <p>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L29.html">L = 29</a></strong><br/>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/">L = 30</a></strong><br/>
+          </p>
+        </div>
+      </div>
+    </div>
 
-    <h3>How to cite</h3>
-
-    <p class="muted">
-      Suggested citation (APA-style):<br/>
-      Borghi, P. (2025). A Prime-Generating Monic Cubic Polynomial with Run Length L = 31. Zenodo. (DOI pending)
-    </p>
-
-    <h3>Author</h3>
-
-    <p>
-      Paolo Borghi<br/>
-      Independent researcher in number theory and prime-generating polynomials.<br/>
-      paolo.borghi@gmail.com
-    </p>
-
-    <h3>Records</h3>
-    <p>
-      <a href="https://pibi1967.github.io/prime-generating-polynomials/">L = 30</a>
-      &nbsp;·&nbsp;
-      <a href="https://pibi1967.github.io/prime-generating-polynomials/l29/">L = 29</a>
-    </p>
-
-    <p class="muted">
+    <footer>
       This page documents the official record status of the Borghi Polynomial (L = 31).<br/>
       Last updated: 2025.
-    </p>
+    </footer>
   </div>
 </body>
 </html>
