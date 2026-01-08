@@ -164,6 +164,15 @@
       border-radius: 4px;
     }
 
+    code2 {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #0f172a;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
+
     pre {
       background: #0f172a;
       color: #e5e7eb;
@@ -515,7 +524,7 @@
           the structural record:
         </p>
 
-        <pre><code>"""
+        <pre><code2>"""
 Deterministic primality test for the structural monic quartic record:
 
     f(n) = n^4 - 41 n^3 + 550 n^2 - 2622 n + 4099
@@ -558,7 +567,7 @@ def main():
     print(f"First composite at n = {L}: f(n) = {f(L)}")
 
 if __name__ == "__main__":
-    main()</code></pre>
+    main()</code2></pre>
 
       </section>
     </div>
