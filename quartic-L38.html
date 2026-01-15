@@ -1,115 +1,531 @@
-# Borghi Polynomial (L = 38)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Borghi Polynomial (L = 38) – Structural Record</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="A structural prime-generating monic quartic polynomial with run length L = 38, built by translation from an L = 35 quartic." />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --border: #e1e4eb;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --accent: #2563eb;
+      --accent-soft: #e0edff;
+      --shadow-soft: 0 2px 8px rgba(15, 23, 42, 0.08);
+      --radius: 12px;
+    }
 
-## A Structural Prime-Generating Monic Quartic Polynomial
+    * {
+      box-sizing: border-box;
+    }
 
-Documented by Paolo Borghi — Verified computationally (2026)
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
 
-## The polynomial
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto 3.5rem auto;
+      padding: 0 1.25rem;
+    }
 
-f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+    header.page-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
 
-This monic quartic integer polynomial produces a run of 38 consecutive prime values when evaluated at consecutive integers starting at `n = 0`. As usual in this context, primality is tested on the absolute value `|f(n)|`.
+    header.page-header h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
 
-Run length: L = 38
+    header.page-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4b5563;
+    }
 
-### Category: monic quartic prime-generating polynomial
+    header.page-header p.meta {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
 
-The polynomial
+    .layout-two-columns {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.75rem;
+    }
 
-f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
 
-is a monic quartic polynomial, since the leading coefficient (the coefficient of n⁴) is equal to 1. This places it within the class of monic quartic prime-generating polynomials, a mathematically significant and more restrictive family than generic quartic polynomials.
+    .main-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem 1.75rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
 
-In this stricter category, achieving a long consecutive prime run is notably difficult. The polynomial above attains a run length of:
+    .main-card h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.5rem;
+    }
 
-L = 38
+    .main-card h3 {
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+    }
 
-establishing an exceptionally long documented prime-generating run for a monic quartic polynomial.
+    .poly-block {
+      background: #0f172a;
+      color: #f9fafb;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin: 0.25rem 0 0.5rem 0;
+    }
 
-## From L = 35 to L = 38 via translation
+    .L-block {
+      display: inline-block;
+      margin-top: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
 
-### The starting polynomial (L = 35)
+    .main-card p {
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.96rem;
+    }
 
-The genealogy starts from the quartic
+    .main-card ul {
+      padding-left: 1.25rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
 
-g(n) = n⁴ − 62n³ + 913n² + 1488n + 4651
+    .genealogy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
 
-which generates L = 35 consecutive primes starting at `n = 0`. Explicitly, `|g(n)|` is prime for `n = 0, 1, …, 34`, and the first composite value occurs at `n = 35`:
+    .genealogy-table th,
+    .genealogy-table td {
+      border: 1px solid #e5e7eb;
+      padding: 0.35rem 0.55rem;
+      vertical-align: top;
+    }
 
-g(35) = 17531 = 47 × 373.
+    .genealogy-table th {
+      background: #f3f4f6;
+      text-align: left;
+      font-weight: 600;
+    }
 
-### The n → n − 1 translation method
+    .genealogy-table tr:nth-child(even) td {
+      background: #f9fafb;
+    }
 
-Given a polynomial `P(n)` with a long prime run, one can construct a translated polynomial
+    code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
 
-`Q(n) = P(n − 1).`
+    code2 {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #0f172a;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
 
-If the newly introduced value `P(−1)` is also prime, then the prime run of `Q(n)` starting at `n = 0` is extended by one:
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
 
-  * `P(n)` is prime for `n = 0, …, L − 1`,
-  * `P(L)` is composite,
-  * `P(−1)` is prime,
+    /* RIGHT SIDEBAR */
 
-which implies that `Q(n) = P(n − 1)` is prime for `n = 0, …, L`, with the first composite at `n = L + 1`. Iterating this translation constructs a genealogical tree of quartic polynomials, each step corresponding to a shift by `n → n − 1`.
+    .record-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+    }
 
-### Structural nature of the record
+    .record-box {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.3rem 1.4rem 1.3rem;
+      position: sticky;
+      top: 1.25rem;
+    }
 
-Applying this method repeatedly to the starting polynomial with `L = 35` yields the structural record
+    .record-box h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
 
-f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+    .record-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
 
-with run length L = 38. The process cannot be extended further within this genealogy, as the next value on the negative side is composite:
+    .record-table th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.3rem 0;
+      color: #374151;
+      width: 40%;
+      vertical-align: top;
+    }
 
-f(−1) = 17531 = 47 × 373,
+    .record-table td {
+      padding: 0.3rem 0;
+      color: #111827;
+      vertical-align: top;
+    }
 
-preventing another successful translation step that would increase L.
+    .zenodo-ref {
+      font-size: 0.88rem;
+      margin-bottom: 0.7rem;
+    }
 
-Moreover, every polynomial in this genealogy shares the same first composite value at the breaking point of its prime run:
+    .zenodo-badge {
+      display: inline-block;
+      background: #facc15;
+      color: #4b3b00;
+      padding: 0.16rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
 
-f_L(L) = 17531 = 47 × 373
+    .citation {
+      background: #f3f4f6;
+      color: #111827;
+      padding: 0.55rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin-top: 0.25rem;
+      margin-bottom: 0.7rem;
+    }
 
-for all L in {35, 36, 37, 38}. This is why this family is naturally described as a *structural* record.
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-## The genealogical tree (L = 38 → L = 35)
+    a:hover {
+      text-decoration: underline;
+    }
 
-Starting from the structural record with L = 38, we obtain a small genealogical family of monic quartic polynomials by iterated translations. Each polynomial `f_{L}(n)` has the form
+    footer {
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
 
-`f_{L}(n) = n⁴ + a n³ + b n² + c n + d`
+    @media (max-width: 900px) {
+      .layout-two-columns {
+        flex-direction: column;
+      }
+      .record-sidebar {
+        width: 100%;
+      }
+      .record-box {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="page-header">
+    <h1>Borghi Polynomial (L = 38)</h1>
+    <h2>A Structural Prime-Generating Monic Quartic Polynomial</h2>
+    <p class="meta">Documented by Paolo Borghi — Verified computationally (2026)</p>
+  </header>
 
-and generates exactly L consecutive primes for `n = 0, …, L − 1`. For every entry in this family, the first composite appears at `n = L` and takes the same value:
+  <div class="layout-two-columns">
+    <!-- LEFT COLUMN -->
+    <div class="main-content">
 
-f_{L}(L) = 17531 = 47 × 373.
+      <section class="main-card" id="polynomial">
+        <h2>The polynomial</h2>
 
-The known top part of the genealogical table is:
+        <p class="poly-block">
+          f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+        </p>
 
-L  Quartic polynomial f_{L}(n)  
-38  n⁴ − 74n³ + 1525n² − 5772n + 10159  
-37  n⁴ − 70n³ + 1309n² − 2940n + 5839  
-36  n⁴ − 66n³ + 1105n² − 528n + 4139  
-35  n⁴ − 62n³ + 913n² + 1488n + 4651  
+        <p>
+          This monic quartic integer polynomial produces a run of
+          <strong>38 consecutive prime values</strong> when evaluated at
+          consecutive integers starting at <code>n = 0</code>. As usual in this
+          context, primality is tested on the absolute value <code>|f(n)|</code>.
+        </p>
 
-*(coefficients checked computationally; all entries share f_{L}(L) = 17531 = 47 × 373)*
+        <p class="L-block">Run length: L = 38</p>
 
-## Computational verification (sketch)
+        <h3>Category: monic quartic prime-generating polynomial</h3>
 
-The structural record and all polynomials in the genealogical family (L = 35, 36, 37, 38) were verified by exhaustive evaluation and deterministic primality checks on 64-bit integers.
+        <p>
+          The polynomial
+        </p>
 
-For the record polynomial
+        <p class="poly-block">
+          f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+        </p>
 
-f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+        <p>
+          is a <em>monic quartic</em> polynomial, since the leading coefficient
+          (the coefficient of n⁴) is equal to 1. This places it within the class
+          of <strong>monic quartic prime-generating polynomials</strong>, a
+          mathematically significant and more restrictive family than generic
+          quartic polynomials.
+        </p>
 
-we have:
+        <p>
+          In this stricter category, achieving a long consecutive prime run is
+          notably difficult. The polynomial above attains a run length of:
+        </p>
 
-  * `|f(n)|` is prime for `n = 0, 1, …, 37`,
-  * the first composite appears at `n = 38`,
-  * `f(38) = 17531 = 47 × 373`.
+        <p class="L-block"><strong>L = 38</strong></p>
 
-### Minimal Python snippet
+        <p>
+          establishing an exceptionally long documented prime-generating run for
+          a monic quartic polynomial.
+        </p>
+      </section>
 
-The following code reproduces the run length `L = 38` for the structural record:
+      <section class="main-card" id="construction">
+        <h2>From L = 35 to L = 38 via translation</h2>
 
-```python
-"""
+        <h3>The starting polynomial (L = 35)</h3>
+
+        <p>
+          The genealogy starts from the quartic
+        </p>
+
+        <p class="poly-block">
+          g(n) = n⁴ − 62n³ + 913n² + 1488n + 4651
+        </p>
+
+        <p>
+          which generates <strong>L = 35</strong> consecutive primes starting
+          at <code>n = 0</code>. Explicitly, <code>|g(n)|</code> is prime for
+          <code>n = 0, 1, …, 34</code>, and the first composite value occurs at
+          <code>n = 35</code>:
+        </p>
+
+        <p class="poly-block">
+          g(35) = 17531 = 47 × 373.
+        </p>
+
+        <h3>The n → n − 1 translation method</h3>
+
+        <p>
+          Given a polynomial <code>P(n)</code> with a long prime run, one can
+          construct a translated polynomial
+        </p>
+
+        <p><code>Q(n) = P(n − 1).</code></p>
+
+        <p>
+          If the newly introduced value <code>P(−1)</code> is also prime, then
+          the prime run of <code>Q(n)</code> starting at <code>n = 0</code> is
+          extended by one:
+        </p>
+
+        <ul>
+          <li><code>P(n)</code> is prime for <code>n = 0, …, L − 1</code>,</li>
+          <li><code>P(L)</code> is composite,</li>
+          <li><code>P(−1)</code> is prime,</li>
+        </ul>
+
+        <p>
+          which implies that <code>Q(n) = P(n − 1)</code> is prime for
+          <code>n = 0, …, L</code>, with the first composite at
+          <code>n = L + 1</code>. Iterating this translation constructs a
+          <strong>genealogical tree</strong> of quartic polynomials, each step
+          corresponding to a shift by <code>n → n − 1</code>.
+        </p>
+
+        <h3>Structural nature of the record</h3>
+
+        <p>
+          Applying this method repeatedly to the starting polynomial with
+          <code>L = 35</code> yields the structural record
+        </p>
+
+        <p class="poly-block">
+          f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+        </p>
+
+        <p>
+          with run length <strong>L = 38</strong>. The process cannot be
+          extended further within this genealogy, as the next value on the
+          negative side is composite
+          (<code>f(−1) = 17531 = 47 × 373</code>), preventing another
+          successful translation step that would increase L.
+        </p>
+      </section>
+
+      <section class="main-card" id="genealogy">
+        <h2>The genealogical tree (L = 38 → L = 1)</h2>
+
+        <p>
+          Starting from the structural record with <strong>L = 38</strong>, we
+          obtain a full genealogical family of monic quartic polynomials by
+          iterated translations. Each polynomial <code>f<sub>L</sub>(n)</code>
+          has the form
+        </p>
+
+        <p><code>f<sub>L</sub>(n) = n⁴ + a n³ + b n² + c n + d</code></p>
+
+        <p>
+          and generates exactly <strong>L</strong> consecutive primes for
+          <code>n = 0, …, L − 1</code>. For every entry in this family, the
+          first composite appears at <code>n = L</code> and takes the same
+          value:
+        </p>
+
+        <p class="poly-block">
+          f<sub>L</sub>(L) = 17531 = 47 × 373.
+        </p>
+
+        <p>The complete genealogical table is:</p>
+
+        <table class="genealogy-table">
+          <thead>
+            <tr>
+              <th style="width:4rem;">L</th>
+              <th>Quartic polynomial f<sub>L</sub>(n)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>38</td><td>n⁴ − 74n³ + 1525n² − 5772n + 10159</td></tr>
+            <tr><td>37</td><td>n⁴ − 70n³ + 1309n² − 2940n + 5839</td></tr>
+            <tr><td>36</td><td>n⁴ − 66n³ + 1105n² − 528n + 4139</td></tr>
+            <tr><td>35</td><td>n⁴ − 62n³ + 913n² + 1488n + 4651</td></tr>
+            <tr><td>34</td><td>n⁴ − 58n³ + 733n² + 3132n + 6991</td></tr>
+            <tr><td>33</td><td>n⁴ − 54n³ + 565n² + 4428n + 10799</td></tr>
+            <tr><td>32</td><td>n⁴ − 50n³ + 409n² + 5400n + 15739</td></tr>
+            <tr><td>31</td><td>n⁴ − 46n³ + 265n² + 6072n + 21499</td></tr>
+            <tr><td>30</td><td>n⁴ − 42n³ + 133n² + 6468n + 27791</td></tr>
+            <tr><td>29</td><td>n⁴ − 38n³ + 13n² + 6612n + 34351</td></tr>
+            <tr><td>28</td><td>n⁴ − 34n³ − 95n² + 6528n + 40939</td></tr>
+            <tr><td>27</td><td>n⁴ − 30n³ − 191n² + 6240n + 47339</td></tr>
+            <tr><td>26</td><td>n⁴ − 26n³ − 275n² + 5772n + 53359</td></tr>
+            <tr><td>25</td><td>n⁴ − 22n³ − 347n² + 5148n + 58831</td></tr>
+            <tr><td>24</td><td>n⁴ − 18n³ − 407n² + 4392n + 63611</td></tr>
+            <tr><td>23</td><td>n⁴ − 14n³ − 455n² + 3528n + 67579</td></tr>
+            <tr><td>22</td><td>n⁴ − 10n³ − 491n² + 2580n + 70639</td></tr>
+            <tr><td>21</td><td>n⁴ − 6n³ − 515n² + 1572n + 72719</td></tr>
+            <tr><td>20</td><td>n⁴ − 2n³ − 527n² + 528n + 73771</td></tr>
+            <tr><td>19</td><td>n⁴ + 2n³ − 527n² − 528n + 73771</td></tr>
+            <tr><td>18</td><td>n⁴ + 6n³ − 515n² − 1572n + 72719</td></tr>
+            <tr><td>17</td><td>n⁴ + 10n³ − 491n² − 2580n + 70639</td></tr>
+            <tr><td>16</td><td>n⁴ + 14n³ − 455n² − 3528n + 67579</td></tr>
+            <tr><td>15</td><td>n⁴ + 18n³ − 407n² − 4392n + 63611</td></tr>
+            <tr><td>14</td><td>n⁴ + 22n³ − 347n² − 5148n + 58831</td></tr>
+            <tr><td>13</td><td>n⁴ + 26n³ − 275n² − 5772n + 53359</td></tr>
+            <tr><td>12</td><td>n⁴ + 30n³ − 191n² − 6240n + 47339</td></tr>
+            <tr><td>11</td><td>n⁴ + 34n³ − 95n² − 6528n + 40939</td></tr>
+            <tr><td>10</td><td>n⁴ + 38n³ + 13n² − 6612n + 34351</td></tr>
+            <tr><td>9</td><td>n⁴ + 42n³ + 133n² − 6468n + 27791</td></tr>
+            <tr><td>8</td><td>n⁴ + 46n³ + 265n² − 6072n + 21499</td></tr>
+            <tr><td>7</td><td>n⁴ + 50n³ + 409n² − 5400n + 15739</td></tr>
+            <tr><td>6</td><td>n⁴ + 54n³ + 565n² − 4428n + 10799</td></tr>
+            <tr><td>5</td><td>n⁴ + 58n³ + 733n² − 3132n + 6991</td></tr>
+            <tr><td>4</td><td>n⁴ + 62n³ + 913n² − 1488n + 4651</td></tr>
+            <tr><td>3</td><td>n⁴ + 66n³ + 1105n² + 528n + 4139</td></tr>
+            <tr><td>2</td><td>n⁴ + 70n³ + 1309n² + 2940n + 5839</td></tr>
+            <tr><td>1</td><td>n⁴ + 74n³ + 1525n² + 5772n + 10159</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="main-card" id="verification">
+        <h2>Computational verification (sketch)</h2>
+
+        <p>
+          The structural record and all polynomials in the genealogical tree
+          were verified by exhaustive evaluation and deterministic primality
+          checks on 64-bit integers.
+        </p>
+
+        <p>
+          For the record polynomial
+        </p>
+
+        <p class="poly-block">
+          f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159
+        </p>
+
+        <p>we have:</p>
+
+        <ul>
+          <li><code>|f(n)|</code> is prime for <code>n = 0, 1, …, 37</code>,</li>
+          <li>the first composite appears at <code>n = 38</code>,</li>
+          <li><code>f(38) = 17531 = 47 × 373</code>.</li>
+        </ul>
+
+        <h3>Minimal Python snippet</h3>
+
+        <p>
+          The following code reproduces the run length <code>L = 38</code> for
+          the structural record:
+        </p>
+
+        <pre><code2>"""
 Deterministic primality test for the structural monic quartic record:
 
     f(n) = n^4 - 74*n^3 + 1525*n^2 - 5772*n + 10159
@@ -121,12 +537,12 @@ C = -5772
 D = 10159
 
 def is_prime(n: int) -> bool:
-    if n < 2:
+    if n &lt; 2:
         return False
     if n % 2 == 0:
         return n == 2
     d = 3
-    while d * d <= n:
+    while d * d &lt;= n:
         if n % d == 0:
             return False
         d += 2
@@ -140,7 +556,7 @@ def main():
     n = 0
     while True:
         v = f(n)
-        if v < 2 or not is_prime(abs(v)):
+        if v &lt; 2 or not is_prime(abs(v)):
             break
         primes.append((n, v))
         n += 1
@@ -148,8 +564,79 @@ def main():
     L = len(primes)
     print("Structural quartic record:")
     print(f"  (a, b, c, d) = ({A}, {B}, {C}, {D})")
-    print("\nLength of the consecutive prime run (L):", L)
+    print("\\nLength of the consecutive prime run (L):", L)
     print(f"First composite at n = {L}: f(n) = {f(L)}")
 
 if __name__ == "__main__":
-    main()
+    main()</code2></pre>
+
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="record-sidebar">
+      <div class="record-box">
+        <h2>Record summary</h2>
+
+        <table class="record-table">
+          <tr><th>Name</th><td>Borghi Polynomial</td></tr>
+          <tr><th>Degree</th><td>4 (quartic)</td></tr>
+          <tr><th>Form</th><td>f(n) = n⁴ − 74n³ + 1525n² − 5772n + 10159</td></tr>
+          <tr><th>Coefficients</th><td>a = −74, b = 1525,<br /> c = −5772, d = 10159</td></tr>
+          <tr><th>Run length</th><td><strong>L = 38</strong></td></tr>
+          <tr><th>Domain</th><td>consecutive n ≥ 0</td></tr>
+          <tr><th>Primality</th><td>tested on |f(n)|</td></tr>
+        </table>
+
+        <h3>Official reference</h3>
+
+        <div class="zenodo-ref">
+          <span class="zenodo-badge">ZENODO RECORD</span>
+          <p>
+            P. Borghi, <em>Structural Record L = 38 for a Prime-Generating
+            Monic Quartic Polynomial</em>, Zenodo, 2026.<br>
+            Record: <em>DOI to be assigned</em>
+          </p>
+        </div>
+
+        <h3>How to cite</h3>
+        <pre class="citation">Borghi, P. (2026). Structural Record L = 38 for a
+Prime-Generating Monic Quartic Polynomial. Zenodo.</pre>
+
+        <h3>Author</h3>
+        <p>
+          <strong>Paolo Borghi</strong><br>
+          Independent researcher in number theory and prime-generating polynomials.
+        </p>
+
+        <div class="section">
+          <h3>Author</h3>
+          <p>
+            <strong>Paolo Borghi</strong><br/>
+            Independent researcher in number theory and prime-generating polynomials.<br/>
+            paolo.borghi@gmail.com
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Records</h3>
+          <p>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">Quartic L = 37</a></strong><br/>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L33.html">Quartic L = 33</a></strong><br/>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L31.html">Cubic L = 31</a></strong><br/>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/">Cubic L = 30</a></strong><br/>
+            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L29.html">Cubic L = 29</a></strong><br/>
+          </p>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    This page documents the structural record status of the Borghi Polynomial
+    with L = 38 and its genealogical tree of monic quartic prime-generating polynomials.
+  </footer>
+</main>
+</body>
+</html>
