@@ -1,0 +1,248 @@
+<h1>The Genealogy Theorem for Monic Prime-Generating Polynomials</h1>
+
+<h2>A Structural Classification via Canonical Shifts</h2>
+
+<p>
+Documented by Paolo Borghi — Zenodo preprint (2026)
+</p>
+
+<h2>Overview</h2>
+
+<p>
+This page summarizes and contextualizes the preprint
+<em>“The Genealogy Theorem for Monic Prime-Generating Polynomials”</em>,
+deposited on Zenodo with DOI <code>10.5281/zenodo.18284699</code>.
+The work introduces a structural framework for classifying
+prime-generating monic integer polynomials evaluated on the
+non-negative integers, in terms of genealogical trees induced by
+a canonical shift of the argument.
+</p>
+
+<p>
+The key idea is that any such polynomial with a non-trivial run of
+consecutive primes sits inside a finite genealogical chain, rooted at a
+polynomial with run length <code>L = 1</code>, and that this chain is
+canonical (i.e. uniquely determined) under a fixed shift operation.
+This provides a natural way to group prime-generating polynomials
+into “families” sharing the same structural data, such as the first
+composite that ends all prime runs along the chain.
+</p>
+
+<h2>Informal statement of the theorem</h2>
+
+<p>
+Let <code>P(n)</code> be a monic integer polynomial of degree
+<code>d ≥ 2</code>. Assume that the absolute values <code>|P(n)|</code>
+are prime for all integers <code>n</code> in the range
+<code>0 ≤ n ≤ L − 1</code>, with <code>L ≥ 2</code>, and that
+<code>P(L)</code> is composite. The preprint proves the following:
+</p>
+
+<ul>
+  <li>
+    There exists a <strong>canonical shift</strong> of the argument
+    that associates to <code>P</code> a unique <strong>parent polynomial</strong>
+    <code>Q(n)</code>, which is again monic and prime-generating on
+    the non-negative integers, with run length <code>L − 1</code>.
+  </li>
+  <li>
+    Iterating this construction produces a finite chain
+    <code>P = P_L, P_{L−1}, …, P_2, P_1</code>, where each
+    <code>P_k</code> is monic, prime-generating with run length
+    <code>k</code>, and <code>P_1</code> has run length
+    <code>L = 1</code> (i.e. a single prime at <code>n = 0</code>,
+    followed by a composite at <code>n = 1</code>).
+  </li>
+  <li>
+    The polynomial <code>P_1</code> is called the
+    <strong>root</strong> of <code>P</code>.
+    Every monic prime-generating polynomial with <code>L &gt; 1</code>
+    admits exactly one such root, obtained by iterating the canonical
+    parent map.
+  </li>
+</ul>
+
+<p>
+In other words, prime-generating monic polynomials on the non-negative
+integers naturally organize into finite genealogical trees (“sequoias”),
+rooted at <code>L = 1</code> polynomials. Each vertex has at most one
+parent (under the canonical shift), and its descendants correspond to
+successive “extensions” of the prime run.
+</p>
+
+<h2>Structural consequences</h2>
+
+<ul>
+  <li>
+    <strong>Genealogical trees.</strong>
+    For each root <code>P_1</code>, the theorem induces a finite
+    genealogical tree consisting of all its descendants
+    <code>P_k</code> with <code>k ≥ 1</code>. The degree and monic
+    nature are preserved along the tree.
+  </li>
+  <li>
+    <strong>Structural records.</strong>
+    Leaves of these trees (i.e. polynomials with no further
+    extension under the canonical shift) correspond to
+    <strong>structural maxima</strong> for the run length <code>L</code>
+    within that genealogy.
+  </li>
+  <li>
+    <strong>Invariants along a genealogy.</strong>
+    Empirically, polynomials lying in the same genealogical tree
+    share certain invariants, such as the first composite value
+    that ends the prime run (for suitable canonical choices), as
+    well as basic algebraic data (degree, leading coefficient,
+    discriminant under shifts, etc.).
+  </li>
+</ul>
+
+<h2>Examples from the paper</h2>
+
+<p>
+The preprint illustrates the genealogy theorem with explicit
+computational examples, including:
+</p>
+
+<ul>
+  <li>
+    A <strong>monic quartic</strong> with structural record
+    <code>L = 38</code> in the canonical setting, documented on
+    the companion page
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">
+      Borghi Polynomial (L = 38)
+    </a>.
+  </li>
+  <li>
+    A <strong>monic cubic</strong> with canonical run length
+    <code>L = 31</code>, which likewise sits at the top of its own
+    genealogical chain in the canonical setting.
+  </li>
+</ul>
+
+<p>
+In each case, the full genealogical family is obtained by repeatedly
+applying the canonical shift operator:
+starting from the structural record (maximal <code>L</code> in that
+tree) and descending step by step to the root with <code>L = 1</code>.
+For the quartic with <code>L = 38</code>, this yields a complete table
+of monic quartic polynomials with run lengths from
+<code>L = 38</code> down to <code>L = 1</code>, all sharing the same
+first composite and forming a single genealogical chain.
+</p>
+
+<h2>Computational verification (sketch)</h2>
+
+<p>
+The theoretical statements are complemented by exhaustive computations
+for concrete examples. At a high level, one proceeds as follows:
+</p>
+
+<ol>
+  <li>
+    Fix a monic polynomial <code>P(n)</code> and evaluate
+    <code>P(n)</code> for <code>n = 0, 1, 2, …</code>, testing
+    the primality of <code>|P(n)|</code> until the first composite
+    appears. This determines the run length <code>L</code>.
+  </li>
+  <li>
+    Construct the canonical parent <code>Q(n)</code> via the shift
+    prescribed by the theorem, and verify that <code>|Q(n)|</code>
+    is prime exactly for <code>n = 0, …, L − 2</code>, with the first
+    composite at <code>n = L − 1</code>.
+  </li>
+  <li>
+    Iterate the parent map until reaching a polynomial with
+    <code>L = 1</code>. This terminal object is the root of the
+    genealogy for <code>P</code>.
+  </li>
+</ol>
+
+<p>
+All computations reported in the preprint were carried out with
+deterministic primality tests on 64-bit integers, so that the
+structural status of the examples is fully reproducible.
+</p>
+
+<h2>Zenodo reference and DOI</h2>
+
+<p>
+Official reference:
+</p>
+
+<blockquote>
+  Borghi, P. (2026). <em>The Genealogy Theorem for Monic Prime-Generating Polynomials</em>. Zenodo. DOI: 10.5281/zenodo.18284699
+</blockquote>
+
+<p>
+DOI badge:
+</p>
+
+<p>
+  <a href="https://doi.org/10.5281/zenodo.18284699">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.18284699.svg" alt="DOI">
+  </a>
+</p>
+
+<h2>How to cite</h2>
+
+<pre>
+Borghi, P. (2026). The Genealogy Theorem for Monic
+Prime-Generating Polynomials. Zenodo.
+https://doi.org/10.5281/zenodo.18284699
+</pre>
+
+<h2>Author</h2>
+
+<p>
+<strong>Paolo Borghi</strong><br>
+Independent researcher in number theory and prime-generating polynomials.<br>
+<a href="mailto:paolo.borghi@gmail.com">paolo.borghi@gmail.com</a>
+</p>
+
+<h2>Related records</h2>
+
+<ul>
+  <li>
+    <a href="https://zenodo.org/records/18284699">
+      Genealogy Theorem for Monic Prime-Generating Polynomials (Zenodo)
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">
+      Quartic structural record L = 38
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">
+      Quartic structural record L = 37
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L33.html">
+      Quartic structural record L = 33
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L31.html">
+      Cubic canonical record L = 31
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L30.html">
+      Cubic record L = 30
+    </a>
+  </li>
+  <li>
+    <a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L29.html">
+      Cubic record L = 29
+    </a>
+  </li>
+</ul>
+
+<p>
+This page presents a structural overview of the genealogy theorem and
+its role in organizing prime-generating monic polynomials into
+canonical genealogical trees. For full proofs, precise definitions,
+and detailed examples, please refer to the Zenodo preprint.
+</p>
