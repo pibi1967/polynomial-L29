@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Q41 Polynomials (L = 41) – Canonical Monic Quartics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Two canonical prime-generating monic quartic polynomials with run length L = 41, verified independently online (SageCell) and arising in the translation-based genealogy." />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --border: #e1e4eb;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --accent: #2563eb;
+      --accent-soft: #e0edff;
+      --shadow-soft: 0 2px 8px rgba(15, 23, 42, 0.08);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto 3.5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    header.page-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    header.page-header h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+
+    header.page-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    header.page-header p.meta {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .layout-two-columns {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.75rem;
+    }
+
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .main-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem 1.75rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .main-card h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.5rem;
+    }
+
+    .main-card h3 {
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .poly-block {
+      background: #0f172a;
+      color: #f9fafb;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin: 0.25rem 0 0.5rem 0;
+    }
+
+    .L-block {
+      display: inline-block;
+      margin-top: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .main-card p {
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.96rem;
+    }
+
+    .main-card ul {
+      padding-left: 1.25rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .genealogy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .genealogy-table th,
+    .genealogy-table td {
+      border: 1px solid #e5e7eb;
+      padding: 0.35rem 0.55rem;
+      vertical-align: top;
+    }
+
+    .genealogy-table th {
+      background: #f3f4f6;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .genealogy-table tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #f5f5f5;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
+
+    code2 {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.9rem;
+      background: #0f172a;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* RIGHT SIDEBAR */
+
+    .record-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+    }
+
+    .record-box {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.3rem 1.4rem 1.3rem;
+      position: sticky;
+      top: 1.25rem;
+    }
+
+    .record-box h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .record-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .record-table th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.3rem 0;
+      color: #374151;
+      width: 40%;
+      vertical-align: top;
+    }
+
+    .record-table td {
+      padding: 0.3rem 0;
+      color: #111827;
+      vertical-align: top;
+    }
+
+    .zenodo-ref {
+      font-size: 0.88rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .zenodo-badge {
+      display: inline-block;
+      background: #facc15;
+      color: #4b3b00;
+      padding: 0.16rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+
+    .citation {
+      background: #f3f4f6;
+      color: #111827;
+      padding: 0.55rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin-top: 0.25rem;
+      margin-bottom: 0.7rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    footer {
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .layout-two-columns { flex-direction: column; }
+      .record-sidebar { width: 100%; }
+      .record-box { position: static; }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <header class="page-header">
+    <h1>Q41 Polynomials (L = 41)</h1>
+    <h2>Two Canonical Prime-Generating Monic Quartic Polynomials</h2>
+    <p class="meta">Documented by Paolo Borghi — Verified computationally (2026)</p>
+  </header>
+
+  <div class="layout-two-columns">
+
+    <!-- LEFT COLUMN -->
+    <div class="main-content">
+
+      <section class="main-card" id="polynomials">
+        <h2>The polynomials</h2>
+
+        <p class="poly-block">
+          f(n) = n⁴ − 80n³ + 1817n² − 8680n + 87119
+        </p>
+
+        <p class="poly-block">
+          g(n) = n⁴ − 80n³ + 1911n² − 12440n + 188369
+        </p>
+
+        <p>
+          These monic quartic integer polynomials produce a run of
+          <strong>41 consecutive prime values</strong> when evaluated at
+          consecutive integers starting at <code>n = 0</code>. As usual in this
+          context, primality is tested on the absolute value <code>|P(n)|</code>.
+        </p>
+
+        <p class="L-block">Run length: <strong>L = 41</strong></p>
+
+        <h3>Category: monic quartic prime-generating polynomial</h3>
+        <p>
+          Both polynomials are <em>monic quartics</em>, since the leading coefficient
+          (the coefficient of <code>n⁴</code>) is equal to 1. This places them within the class
+          of <strong>monic quartic prime-generating polynomials</strong>, a mathematically significant
+          and more restrictive family than generic quartic polynomials.
+        </p>
+
+        <p>
+          The achievement of <strong>L = 41</strong> matches the classical run length obtained by Euler’s
+          quadratic polynomial, but here it is attained within the stricter monic quartic category.
+        </p>
+      </section>
+
+      <section class="main-card" id="verification">
+        <h2>Independent verification (online)</h2>
+
+        <p>
+          Both polynomials were independently verified online by scanning consecutive integers
+          from <code>n = 0</code> and stopping at the first composite value.
+          The SageCell outputs were:
+        </p>
+
+        <ul>
+          <li><code>STOP n = 41, P(n) = 97697</code> for <strong>f(n)</strong></li>
+          <li><code>STOP n = 41, P(n) = 202801</code> for <strong>g(n)</strong></li>
+        </ul>
+
+        <h3>First composite values at n = 41</h3>
+        <ul>
+          <li><strong>f(41) = 97697 = 151 × 647</strong></li>
+          <li><strong>g(41) = 202801 = 139 × 1459</strong></li>
+        </ul>
+
+        <h3>Minimal Sage/Python snippet (as used in online verification)</h3>
+        <pre><code2>def check_run(P, N=120):
+    for n in range(0, N+1):
+        x = abs(P(n))
+        if not is_prime(x):
+            print("STOP n=", n, " P(n)=", x)
+            return
+    print("No stop up to N =", N)
+
+# Q41-A
+check_run(lambda n: n^4 - 80*n^3 + 1817*n^2 - 8680*n + 87119)
+
+# Q41-B
+check_run(lambda n: n^4 - 80*n^3 + 1911*n^2 - 12440*n + 188369)</code2></pre>
+      </section>
+
+      <section class="main-card" id="genealogy">
+        <h2>Genealogical origin (translation n → n − 1)</h2>
+
+        <p>
+          Within the Borghi genealogy framework, a translation step is defined by:
+          <code>Q(n) = P(n − 1)</code>. If <code>P(−1)</code> is also prime, the prime run for
+          <code>Q(n)</code> starting at <code>n = 0</code> increases by one.
+        </p>
+
+        <h3>Connection to Strategy A seeds (L = 39)</h3>
+        <p>
+          Both L = 41 polynomials arise as descendants of quartic seeds found by the computational
+          search (Strategy A, sieve on <code>d</code>).
+        </p>
+
+        <table class="genealogy-table">
+          <thead>
+            <tr>
+              <th style="width:12rem;">Seed / Descendant</th>
+              <th>Polynomial</th>
+              <th style="width:6rem;">L</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Seed (from CSV)</td>
+              <td>n⁴ − 76n³ + 1583n² − 5282n + 80177</td>
+              <td>39</td>
+            </tr>
+            <tr>
+              <td>Child (n → n − 1)</td>
+              <td><strong>n⁴ − 80n³ + 1817n² − 8680n + 87119</strong></td>
+              <td><strong>41</strong></td>
+            </tr>
+
+            <tr>
+              <td>Seed (from CSV)</td>
+              <td>n⁴ − 72n³ + 1455n² − 5724n + 170509</td>
+              <td>39</td>
+            </tr>
+            <tr>
+              <td>Grandchild (two steps)</td>
+              <td><strong>n⁴ − 80n³ + 1911n² − 12440n + 188369</strong></td>
+              <td><strong>41</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="L-block">Key point: L = 41 is achieved by translation-based genealogy.</p>
+      </section>
+
+      <section class="main-card" id="notes">
+        <h2>Notes</h2>
+        <ul>
+          <li><strong>Canonical setting:</strong> consecutive integers starting at <code>n = 0</code>, primality tested on <code>|P(n)|</code>.</li>
+          <li><strong>Stop rule:</strong> the first composite occurs at <code>n = 41</code> for both polynomials.</li>
+          <li><strong>Historical remark:</strong> L = 41 matches Euler’s classical run length, now achieved within the monic quartic category.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="record-sidebar">
+      <div class="record-box">
+        <h2>Record summary</h2>
+
+        <table class="record-table">
+          <tr><th>Degree</th><td>4 (quartic)</td></tr>
+          <tr><th>Category</th><td>monic quartic</td></tr>
+          <tr><th>Run length</th><td><strong>L = 41</strong></td></tr>
+          <tr><th>Domain</th><td>consecutive n ≥ 0</td></tr>
+          <tr><th>Primality</th><td>tested on |P(n)|</td></tr>
+        </table>
+
+        <h3>Polynomials</h3>
+        <p class="poly-block">n⁴ − 80n³ + 1817n² − 8680n + 87119</p>
+        <p class="poly-block">n⁴ − 80n³ + 1911n² − 12440n + 188369</p>
+
+        <h3>Stop at n = 41</h3>
+        <p class="small">
+          f(41) = 97697 = 151 × 647<br/>
+          g(41) = 202801 = 139 × 1459
+        </p>
+
+        <h3>How to cite</h3>
+        <pre class="citation">Borghi, P. (2026). Q41 Polynomials (L = 41): Two canonical prime-generating monic quartic polynomials.
+GitHub Pages: Prime-generating polynomials (Q41).</pre>
+
+        <div class="section">
+          <h3>Author</h3>
+          <p>
+            <strong>Paolo Borghi</strong><br/>
+            Independent researcher in number theory and prime-generating polynomials.<br/>
+            paolo.borghi@gmail.com
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Records</h3>
+          <p>
+            <strong><a href="genealogy_theorem.html">Genealogy Theorem</a></strong><br/>
+            <strong><a href="https://zenodo.org/records/18284699">Genealogy Theorem - Zenodo</a></strong><br/>
+            <strong><a href="quartic-L41.html">Quartic L = 41</a></strong><br/>
+            <strong><a href="quartic-L38.html">Quartic L = 38</a></strong><br/>
+            <strong><a href="quartic-L37.html">Quartic L = 37</a></strong><br/>
+            <strong><a href="quartic-L33.html">Quartic L = 33</a></strong><br/>
+            <strong><a href="cubic-L31.html">Cubic L = 31</a></strong><br/>
+            <strong><a href="prime-generating-polynomials/">Home</a></strong><br/>
+          </p>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+
+  <footer>
+    This page documents two canonical monic quartic polynomials achieving run length L = 41
+    and their translation-based genealogical origin.
+  </footer>
+</main>
+</body>
+</html>
