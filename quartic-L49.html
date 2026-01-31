@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Borghi Polynomial – Quartico Monico (L = 49)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Un polinomio quartico monico a coefficienti interi che genera L = 49 valori primi consecutivi per n = 0..48 (primalità testata su |P(n)|), ottenuto tramite traslazioni genealogiche." />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --border: #e1e4eb;
+      --text-main: #222222;
+      --text-muted: #666666;
+      --accent: #2563eb;
+      --accent-soft: #e0edff;
+      --shadow-soft: 0 2px 8px rgba(15, 23, 42, 0.08);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto 3.5rem auto;
+      padding: 0 1.25rem;
+    }
+
+    header.page-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    header.page-header h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+
+    header.page-header h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    header.page-header p.meta {
+      margin: 0.5rem 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .layout-two-columns {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1.75rem;
+    }
+
+    .main-content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .main-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.75rem 1.75rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .main-card h2 {
+      margin-top: 0;
+      font-size: 1.35rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.5rem;
+    }
+
+    .main-card h3 {
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .poly-block {
+      background: #0f172a;
+      color: #f9fafb;
+      padding: 0.55rem 0.75rem;
+      border-radius: 8px;
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.98rem;
+      display: inline-block;
+      margin: 0.25rem 0 0.5rem 0;
+      white-space: nowrap;
+    }
+
+    .L-block {
+      display: inline-block;
+      margin-top: 0.35rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .main-card p {
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.97rem;
+    }
+
+    .main-card ul {
+      padding-left: 1.25rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .genealogy-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.75rem;
+      font-size: 0.92rem;
+    }
+
+    .genealogy-table th,
+    .genealogy-table td {
+      border: 1px solid #e5e7eb;
+      padding: 0.38rem 0.55rem;
+      vertical-align: top;
+    }
+
+    .genealogy-table th {
+      background: #f3f4f6;
+      text-align: left;
+      font-weight: 700;
+    }
+
+    .genealogy-table tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+                   "Courier New", monospace;
+      font-size: 0.92rem;
+      background: #f5f5f5;
+      padding: 0.06rem 0.25rem;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 0.75rem 0.9rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    /* RIGHT SIDEBAR */
+    .record-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+    }
+
+    .record-box {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.3rem 1.4rem 1.3rem;
+      position: sticky;
+      top: 1.25rem;
+    }
+
+    .record-box h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .record-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .record-table th {
+      text-align: left;
+      font-weight: 700;
+      padding: 0.3rem 0;
+      color: #374151;
+      width: 40%;
+      vertical-align: top;
+    }
+
+    .record-table td {
+      padding: 0.3rem 0;
+      color: #111827;
+      vertical-align: top;
+    }
+
+    .zenodo-ref {
+      font-size: 0.88rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .zenodo-badge {
+      display: inline-block;
+      background: #facc15;
+      color: #4b3b00;
+      padding: 0.16rem 0.45rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+
+    .citation {
+      background: #f3f4f6;
+      color: #111827;
+      padding: 0.55rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin-top: 0.25rem;
+      margin-bottom: 0.7rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .callout {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 1.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .layout-two-columns { flex-direction: column; }
+      .record-sidebar { width: 100%; }
+      .record-box { position: static; }
+      .poly-block { white-space: normal; }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <header class="page-header">
+    <h1>Quartico monico con run di primi L = 49</h1>
+    <h2>Polinomio prime-generating e genealogia per traslazione</h2>
+    <p class="meta">Documentato da Paolo Borghi — verifica computazionale (2026)</p>
+  </header>
+
+  <div class="layout-two-columns">
+    <!-- LEFT COLUMN -->
+    <div class="main-content">
+
+      <section class="main-card" id="polynomial">
+        <h2>Il polinomio</h2>
+
+        <p class="poly-block">
+          Q(n) = n^4 − 96n^3 + 3153n^2 − 40752n + 192307
+        </p>
+
+        <p>
+          Questo polinomio quartico monico a coefficienti interi genera una sequenza di
+          <strong>49 valori primi consecutivi</strong> quando viene valutato per
+          <code>n = 0, 1, …, 48</code>. La primalità è testata sul valore assoluto
+          <code>|Q(n)|</code>.
+        </p>
+
+        <p class="L-block">Run length: L = 49</p>
+
+        <div class="callout">
+          <strong>Stop (primo composito):</strong><br>
+          <code>Q(49) = 236309 = 67 × 3527</code>
+        </div>
+
+        <h3>Contesto</h3>
+        <p>
+          Il celebre polinomio di Eulero <code>n^2 + n + 41</code> produce 40 primi consecutivi
+          per <code>n = 0..39</code> (poi <code>n=40</code> dà <code>1681 = 41^2</code>).
+          In termini di run di primi consecutivi a partire da <code>n=0</code>, il quartico monico
+          qui documentato raggiunge <strong>L = 49</strong>.
+        </p>
+      </section>
+
+      <section class="main-card" id="genealogy">
+        <h2>Genealogia per traslazione (L = 42 → 49)</h2>
+
+        <p>
+          Il polinomio record <code>Q(n)</code> nasce tramite ripetute traslazioni del tipo:
+        </p>
+        <p><code>Q(n) = P(n − 1)</code></p>
+
+        <p>
+          Se <code>|P(n)|</code> è primo per <code>n = 0..L−1</code> e in più <code>|P(−1)|</code> è primo,
+          allora la traslazione aumenta la run di uno: il nuovo polinomio sarà primo per <code>n = 0..L</code>.
+          Iterando questo meccanismo si ottiene una catena genealogica.
+        </p>
+
+        <h3>Polinomio di partenza (L = 42)</h3>
+        <p class="poly-block">
+          P(n) = n^4 − 68n^3 + 1431n^2 − 9350n + 31013
+        </p>
+        <p>
+          Per questo polinomio si ha primalità per <code>n = 0..41</code>, e lo stop è a <code>n = 42</code>:
+          <code>P(42) = 236309 = 67 × 3527</code>.
+          Inoltre i valori negativi <code>P(−1), …, P(−7)</code> risultano primi, mentre <code>P(−8)</code>
+          è composto, consentendo 7 traslazioni consecutive e conducendo a <strong>L = 49</strong>.
+        </p>
+
+        <h3>Tabella genealogica completa</h3>
+
+        <table class="genealogy-table">
+          <thead>
+            <tr>
+              <th style="width:4.5rem;">L</th>
+              <th>Polinomio monico quartico</th>
+              <th style="width:13rem;">Stop</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>49</strong></td>
+              <td>n^4 − 96n^3 + 3153n^2 − 40752n + 192307</td>
+              <td>n=49: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>48</td>
+              <td>n^4 − 92n^3 + 2871n^2 − 34730n + 154613</td>
+              <td>n=48: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>47</td>
+              <td>n^4 − 88n^3 + 2601n^2 − 29260n + 122663</td>
+              <td>n=47: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>46</td>
+              <td>n^4 − 84n^3 + 2343n^2 − 24318n + 95917</td>
+              <td>n=46: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>45</td>
+              <td>n^4 − 80n^3 + 2097n^2 − 19880n + 73859</td>
+              <td>n=45: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>44</td>
+              <td>n^4 − 76n^3 + 1863n^2 − 15922n + 55997</td>
+              <td>n=44: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>43</td>
+              <td>n^4 − 72n^3 + 1641n^2 − 12420n + 41863</td>
+              <td>n=43: 236309 = 67×3527</td>
+            </tr>
+            <tr>
+              <td>42</td>
+              <td>n^4 − 68n^3 + 1431n^2 − 9350n + 31013</td>
+              <td>n=42: 236309 = 67×3527</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Osservazione strutturale:</strong> lungo tutta la catena il primo valore composto (lo “stop”) è
+          lo stesso numero <code>236309</code>; cambia solo l’indice <code>n</code> a cui si manifesta.
+        </div>
+      </section>
+
+      <section class="main-card" id="verification">
+        <h2>Verifica computazionale</h2>
+
+        <p>
+          Il controllo è eseguito valutando il polinomio per valori consecutivi di <code>n</code>,
+          verificando la primalità su <code>|P(n)|</code> fino alla prima occorrenza composta.
+          La fattorizzazione dello stop rende la verifica riproducibile e trasparente.
+        </p>
+
+        <h3>SageMath / SageCell (online)</h3>
+        <pre><code># Incolla su https://sagecell.sagemath.org/
+
+def Q(n):
+    return n^4 - 96*n^3 + 3153*n^2 - 40752*n + 192307
+
+for n in range(0, 200):
+    v = abs(Q(n))
+    if not is_prime(v):
+        print("STOP n =", n, " Q(n) =", v, " factor =", factor(v))
+        break
+</code></pre>
+
+        <h3>PARI/GP (online o locale)</h3>
+        <pre><code>Q(n)=n^4-96*n^3+3153*n^2-40752*n+192307;
+for(n=0,200,
+  if(!isprime(abs(Q(n))),
+    print("STOP n=",n,"  Q(n)=",abs(Q(n)),"  fact=",factor(abs(Q(n))));
+    break
+  )
+);</code></pre>
+
+        <p>
+          Output atteso:
+          <code>STOP n=49  Q(n)=236309  fact=67*3527</code>.
+        </p>
+      </section>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <aside class="record-sidebar">
+      <div class="record-box">
+        <h2>Scheda record</h2>
+
+        <table class="record-table">
+          <tr><th>Grado</th><td>4 (quartico)</td></tr>
+          <tr><th>Classe</th><td>monico, coefficienti interi</td></tr>
+          <tr><th>Forma</th><td>Q(n)=n^4+an^3+bn^2+cn+d</td></tr>
+          <tr><th>Coefficienti</th><td>a=−96<br>b=3153<br>c=−40752<br>d=192307</td></tr>
+          <tr><th>Run length</th><td><strong>L = 49</strong></td></tr>
+          <tr><th>Dominio</th><td>n ≥ 0</td></tr>
+          <tr><th>Test</th><td>primalità su |Q(n)|</td></tr>
+          <tr><th>Stop</th><td>Q(49)=236309=67×3527</td></tr>
+        </table>
+
+        <h3>Riferimento Zenodo</h3>
+        <div class="zenodo-ref">
+          <span class="zenodo-badge">ZENODO RECORD</span>
+          <p>
+            <em>Da aggiornare dopo la pubblicazione.</em><br>
+            DOI/Record: <code>INSERISCI QUI</code>
+          </p>
+        </div>
+
+        <h3>Come citare</h3>
+        <pre class="citation">Borghi, P. (2026). Quartico monico prime-generating con run L = 49.
+Zenodo. (DOI: da inserire)</pre>
+
+        <h3>Autore</h3>
+        <p>
+          <strong>Paolo Borghi</strong><br>
+          Ricerca indipendente su polinomi prime-generating e genealogie per traslazione.
+        </p>
+
+        <h3>Link</h3>
+        <p>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/genealogy_theorem.html">Genealogy Theorem</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L41_it.html">Quartici monici L = 41 (IT)</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">Quartico monico L = 38</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">Quartico monico L = 37</a></strong><br/>
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    Pagina tecnica: polinomio quartico monico con run di primi L=49, genealogia (L=42→49) e verifica riproducibile.
+  </footer>
+</main>
+</body>
+</html>
