@@ -297,22 +297,22 @@
         <p>
           This monic quartic integer polynomial generates a sequence of
           <strong>49 consecutive prime values</strong> when evaluated at
-          <code>n = 0, 1, …, 48</code>. Primality is tested on the absolute value
-          <code>|Q(n)|</code>.
+          <strong>n = 0, 1, …, 48</strong>. Primality is tested on the absolute value
+          <strong>|Q(n)|</strong>.
         </p>
 
         <p class="L-block">Run length: L = 49</p>
 
         <div class="callout">
           <strong>Stop (first composite):</strong><br>
-          <code>Q(49) = 236309 = 67 × 3527</code>
+          <strong>Q(49) = 236309 = 67 × 3527</strong>
         </div>
 
         <h3>Context</h3>
         <p>
           Euler’s famous polynomial <code>n^2 + n + 41</code> produces primes for
-          <code>n = 0..39</code> (then <code>n=40</code> gives <code>1681 = 41^2</code>).
-          In terms of consecutive primes starting at <code>n=0</code>, the monic quartic
+          <strong>n = 0..39</strong> (then <strong>n=40</strong> gives <strong>1681 = 41^2</strong>).
+          In terms of consecutive primes starting at <strong>n=0</strong>, the monic quartic
           documented here reaches <strong>L = 49</strong>.
         </p>
       </section>
@@ -321,14 +321,14 @@
         <h2>Translation genealogy (L = 42 → 49)</h2>
 
         <p>
-          The record polynomial <code>Q(n)</code> is obtained through repeated translations of the form:
+          The record polynomial <strong>Q(n)</strong> is obtained through repeated translations of the form:
         </p>
-        <p><code>Q(n) = P(n − 1)</code></p>
+        <p><strong>Q(n) = P(n − 1)</strong></p>
 
         <p>
-          If <code>|P(n)|</code> is prime for <code>n = 0..L−1</code> and additionally <code>|P(−1)|</code> is prime,
+          If <strong>|P(n)|</strong> is prime for <strong>n = 0..L−1</strong> and additionally <strong>|P(−1)|</strong> is prime,
           then the translation increases the run length by one: the translated polynomial is prime for
-          <code>n = 0..L</code>. Iterating this mechanism produces a genealogical chain.
+          <strong>n = 0..L</strong>. Iterating this mechanism produces a genealogical chain.
         </p>
 
         <h3>Starting polynomial (L = 42)</h3>
@@ -336,9 +336,9 @@
           P(n) = n^4 − 68n^3 + 1431n^2 − 9350n + 31013
         </p>
         <p>
-          For this polynomial, primality holds for <code>n = 0..41</code>, and the stop occurs at <code>n = 42</code>:
-          <code>P(42) = 236309 = 67 × 3527</code>.
-          Moreover, the negative-side values <code>P(−1), …, P(−7)</code> are prime, while <code>P(−8)</code>
+          For this polynomial, primality holds for <strong>n = 0..41</strong>, and the stop occurs at <strong>n = 42</strong>:
+          <strong>P(42) = 236309 = 67 × 3527</strong>.
+          Moreover, the negative-side values <strong>P(−1), …, P(−7)</strong> are prime, while <strong>P(−8)</strong>
           is composite, enabling 7 consecutive translations and leading to <strong>L = 49</strong>.
         </p>
 
@@ -398,7 +398,7 @@
 
         <div class="callout">
           <strong>Structural note:</strong> along the whole chain, the first composite (“stop”) is the same integer
-          <code>236309</code>; only the index <code>n</code> where it occurs changes.
+          <strong>236309</strong>; only the index <strong>n</strong> where it occurs changes.
         </div>
       </section>
 
@@ -407,7 +407,7 @@
 
         <p>
           Verification is performed by evaluating the polynomial at consecutive integer values of <code>n</code>,
-          testing primality on <code>|P(n)|</code> until the first composite occurs. Factoring the stop value makes
+          testing primality on <strong>|P(n)|</strong> until the first composite occurs. Factoring the stop value makes
           the check transparent and reproducible.
         </p>
 
