@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Borghi Polynomial – Quartico Monico (L = 49)</title>
+  <title>Borghi Polynomial – Monic Quartic (L = 49)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-        content="Un polinomio quartico monico a coefficienti interi che genera L = 49 valori primi consecutivi per n = 0..48 (primalità testata su |P(n)|), ottenuto tramite traslazioni genealogiche." />
+        content="A monic quartic integer polynomial generating L = 49 consecutive prime values for n = 0..48 (primality tested on |P(n)|), obtained via genealogical translations." />
   <style>
     :root {
       --bg: #f5f7fb;
@@ -277,9 +277,9 @@
 <body>
 <main>
   <header class="page-header">
-    <h1>Quartico monico con run di primi L = 49</h1>
-    <h2>Polinomio prime-generating e genealogia per traslazione</h2>
-    <p class="meta">Documentato da Paolo Borghi — verifica computazionale (2026)</p>
+    <h1>Monic quartic prime run with L = 49</h1>
+    <h2>A prime-generating polynomial and its translation genealogy</h2>
+    <p class="meta">Documented by Paolo Borghi — computationally verified (2026)</p>
   </header>
 
   <div class="layout-two-columns">
@@ -287,67 +287,67 @@
     <div class="main-content">
 
       <section class="main-card" id="polynomial">
-        <h2>Il polinomio</h2>
+        <h2>The polynomial</h2>
 
         <p class="poly-block">
           Q(n) = n^4 − 96n^3 + 3153n^2 − 40752n + 192307
         </p>
 
         <p>
-          Questo polinomio quartico monico a coefficienti interi genera una sequenza di
-          <strong>49 valori primi consecutivi</strong> quando viene valutato per
-          <code>n = 0, 1, …, 48</code>. La primalità è testata sul valore assoluto
+          This monic quartic integer polynomial generates a sequence of
+          <strong>49 consecutive prime values</strong> when evaluated at
+          <code>n = 0, 1, …, 48</code>. Primality is tested on the absolute value
           <code>|Q(n)|</code>.
         </p>
 
         <p class="L-block">Run length: L = 49</p>
 
         <div class="callout">
-          <strong>Stop (primo composito):</strong><br>
+          <strong>Stop (first composite):</strong><br>
           <code>Q(49) = 236309 = 67 × 3527</code>
         </div>
 
-        <h3>Contesto</h3>
+        <h3>Context</h3>
         <p>
-          Il celebre polinomio di Eulero <code>n^2 + n + 41</code> produce 40 primi consecutivi
-          per <code>n = 0..39</code> (poi <code>n=40</code> dà <code>1681 = 41^2</code>).
-          In termini di run di primi consecutivi a partire da <code>n=0</code>, il quartico monico
-          qui documentato raggiunge <strong>L = 49</strong>.
+          Euler’s famous polynomial <code>n^2 + n + 41</code> produces primes for
+          <code>n = 0..39</code> (then <code>n=40</code> gives <code>1681 = 41^2</code>).
+          In terms of consecutive primes starting at <code>n=0</code>, the monic quartic
+          documented here reaches <strong>L = 49</strong>.
         </p>
       </section>
 
       <section class="main-card" id="genealogy">
-        <h2>Genealogia per traslazione (L = 42 → 49)</h2>
+        <h2>Translation genealogy (L = 42 → 49)</h2>
 
         <p>
-          Il polinomio record <code>Q(n)</code> nasce tramite ripetute traslazioni del tipo:
+          The record polynomial <code>Q(n)</code> is obtained through repeated translations of the form:
         </p>
         <p><code>Q(n) = P(n − 1)</code></p>
 
         <p>
-          Se <code>|P(n)|</code> è primo per <code>n = 0..L−1</code> e in più <code>|P(−1)|</code> è primo,
-          allora la traslazione aumenta la run di uno: il nuovo polinomio sarà primo per <code>n = 0..L</code>.
-          Iterando questo meccanismo si ottiene una catena genealogica.
+          If <code>|P(n)|</code> is prime for <code>n = 0..L−1</code> and additionally <code>|P(−1)|</code> is prime,
+          then the translation increases the run length by one: the translated polynomial is prime for
+          <code>n = 0..L</code>. Iterating this mechanism produces a genealogical chain.
         </p>
 
-        <h3>Polinomio di partenza (L = 42)</h3>
+        <h3>Starting polynomial (L = 42)</h3>
         <p class="poly-block">
           P(n) = n^4 − 68n^3 + 1431n^2 − 9350n + 31013
         </p>
         <p>
-          Per questo polinomio si ha primalità per <code>n = 0..41</code>, e lo stop è a <code>n = 42</code>:
+          For this polynomial, primality holds for <code>n = 0..41</code>, and the stop occurs at <code>n = 42</code>:
           <code>P(42) = 236309 = 67 × 3527</code>.
-          Inoltre i valori negativi <code>P(−1), …, P(−7)</code> risultano primi, mentre <code>P(−8)</code>
-          è composto, consentendo 7 traslazioni consecutive e conducendo a <strong>L = 49</strong>.
+          Moreover, the negative-side values <code>P(−1), …, P(−7)</code> are prime, while <code>P(−8)</code>
+          is composite, enabling 7 consecutive translations and leading to <strong>L = 49</strong>.
         </p>
 
-        <h3>Tabella genealogica completa</h3>
+        <h3>Complete genealogical table</h3>
 
         <table class="genealogy-table">
           <thead>
             <tr>
               <th style="width:4.5rem;">L</th>
-              <th>Polinomio monico quartico</th>
+              <th>Monic quartic polynomial</th>
               <th style="width:13rem;">Stop</th>
             </tr>
           </thead>
@@ -396,22 +396,22 @@
         </table>
 
         <div class="callout">
-          <strong>Osservazione strutturale:</strong> lungo tutta la catena il primo valore composto (lo “stop”) è
-          lo stesso numero <code>236309</code>; cambia solo l’indice <code>n</code> a cui si manifesta.
+          <strong>Structural note:</strong> along the whole chain, the first composite (“stop”) is the same integer
+          <code>236309</code>; only the index <code>n</code> where it occurs changes.
         </div>
       </section>
 
       <section class="main-card" id="verification">
-        <h2>Verifica computazionale</h2>
+        <h2>Computational verification</h2>
 
         <p>
-          Il controllo è eseguito valutando il polinomio per valori consecutivi di <code>n</code>,
-          verificando la primalità su <code>|P(n)|</code> fino alla prima occorrenza composta.
-          La fattorizzazione dello stop rende la verifica riproducibile e trasparente.
+          Verification is performed by evaluating the polynomial at consecutive integer values of <code>n</code>,
+          testing primality on <code>|P(n)|</code> until the first composite occurs. Factoring the stop value makes
+          the check transparent and reproducible.
         </p>
 
         <h3>SageMath / SageCell (online)</h3>
-        <pre><code># Incolla su https://sagecell.sagemath.org/
+        <pre><code># Paste into https://sagecell.sagemath.org/
 
 def Q(n):
     return n^4 - 96*n^3 + 3153*n^2 - 40752*n + 192307
@@ -423,7 +423,7 @@ for n in range(0, 200):
         break
 </code></pre>
 
-        <h3>PARI/GP (online o locale)</h3>
+        <h3>PARI/GP (online or local)</h3>
         <pre><code>Q(n)=n^4-96*n^3+3153*n^2-40752*n+192307;
 for(n=0,200,
   if(!isprime(abs(Q(n))),
@@ -433,7 +433,7 @@ for(n=0,200,
 );</code></pre>
 
         <p>
-          Output atteso:
+          Expected output:
           <code>STOP n=49  Q(n)=236309  fact=67*3527</code>.
         </p>
       </section>
@@ -443,51 +443,51 @@ for(n=0,200,
     <!-- RIGHT COLUMN -->
     <aside class="record-sidebar">
       <div class="record-box">
-        <h2>Scheda record</h2>
+        <h2>Record summary</h2>
 
         <table class="record-table">
-          <tr><th>Grado</th><td>4 (quartico)</td></tr>
-          <tr><th>Classe</th><td>monico, coefficienti interi</td></tr>
-          <tr><th>Forma</th><td>Q(n)=n^4+an^3+bn^2+cn+d</td></tr>
-          <tr><th>Coefficienti</th><td>a=−96<br>b=3153<br>c=−40752<br>d=192307</td></tr>
+          <tr><th>Degree</th><td>4 (quartic)</td></tr>
+          <tr><th>Class</th><td>monic, integer coefficients</td></tr>
+          <tr><th>Form</th><td>Q(n)=n^4+an^3+bn^2+cn+d</td></tr>
+          <tr><th>Coefficients</th><td>a=−96<br>b=3153<br>c=−40752<br>d=192307</td></tr>
           <tr><th>Run length</th><td><strong>L = 49</strong></td></tr>
-          <tr><th>Dominio</th><td>n ≥ 0</td></tr>
-          <tr><th>Test</th><td>primalità su |Q(n)|</td></tr>
+          <tr><th>Domain</th><td>n ≥ 0</td></tr>
+          <tr><th>Primality test</th><td>on |Q(n)|</td></tr>
           <tr><th>Stop</th><td>Q(49)=236309=67×3527</td></tr>
         </table>
 
-        <h3>Riferimento Zenodo</h3>
+        <h3>Zenodo reference</h3>
         <div class="zenodo-ref">
           <span class="zenodo-badge">ZENODO RECORD</span>
           <p>
-            <em>Da aggiornare dopo la pubblicazione.</em><br>
-            DOI/Record: <code>INSERISCI QUI</code>
+            <em>Update after publication.</em><br>
+            DOI/Record: <code>PASTE HERE</code>
           </p>
         </div>
 
-        <h3>Come citare</h3>
-        <pre class="citation">Borghi, P. (2026). Quartico monico prime-generating con run L = 49.
-Zenodo. (DOI: da inserire)</pre>
+        <h3>How to cite</h3>
+        <pre class="citation">Borghi, P. (2026). Monic quartic prime-generating polynomial with run L = 49.
+Zenodo. (DOI: to be added)</pre>
 
-        <h3>Autore</h3>
+        <h3>Author</h3>
         <p>
           <strong>Paolo Borghi</strong><br>
-          Ricerca indipendente su polinomi prime-generating e genealogie per traslazione.
+          Independent research on prime-generating polynomials and translation genealogies.
         </p>
 
-        <h3>Link</h3>
+        <h3>Links</h3>
         <p>
           <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/genealogy_theorem.html">Genealogy Theorem</a></strong><br/>
-          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L41_it.html">Quartici monici L = 41 (IT)</a></strong><br/>
-          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">Quartico monico L = 38</a></strong><br/>
-          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">Quartico monico L = 37</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L41_it.html">Monic quartics L = 41 (IT)</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">Monic quartic L = 38</a></strong><br/>
+          <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">Monic quartic L = 37</a></strong><br/>
         </p>
       </div>
     </aside>
   </div>
 
   <footer>
-    Pagina tecnica: polinomio quartico monico con run di primi L=49, genealogia (L=42→49) e verifica riproducibile.
+    Technical page: a monic quartic with prime run L=49, its translation genealogy (L=42→49), and a reproducible verification.
   </footer>
 </main>
 </body>
