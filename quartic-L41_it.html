@@ -301,8 +301,8 @@
         <p>
           Questi polinomi quartici monici a coefficienti interi producono una sequenza di
           <strong>41 valori primi consecutivi</strong> quando vengono valutati su interi consecutivi
-          a partire da <code>n = 0</code>. Come di consueto in questo contesto, la primalità è
-          testata sul valore assoluto <code>|P(n)|</code>.
+          a partire da <strong>n = 0</strong>. Come di consueto in questo contesto, la primalità è
+          testata sul valore assoluto <strong>|P(n)|</strong>.
         </p>
 
         <p class="L-block">Lunghezza della run: <strong>L = 41</strong></p>
@@ -310,14 +310,13 @@
         <h3>Categoria: polinomi quartici monici che generano primi</h3>
         <p>
           Entrambi i polinomi sono <em>quartici monici</em>, perché il coefficiente del termine
-          di grado massimo (<code>n⁴</code>) è uguale a 1. Questo li colloca nella classe dei
+          di grado massimo (<strong>n⁴</strong>) è uguale a 1. Questo li colloca nella classe dei
           <strong>polinomi quartici monici che generano primi</strong>, una famiglia matematicamente
           significativa e più restrittiva rispetto ai polinomi quartici generici.
         </p>
 
         <p>
-          Il risultato <strong>L = 41</strong> supera di uno la lunghezza classica ottenuta dal polinomio
-          quadratico di Eulero, ma qui viene raggiunta nella categoria più severa dei quartici monici.
+          The result <strong>L = 41</strong> exceeds by one the classical length obtained by Euler’s quadratic polynomial, but here it is achieved in the more stringent category of monic quartic polynomials.
         </p>
       </section>
 
@@ -326,13 +325,13 @@
 
         <p>
           Entrambi i polinomi sono stati verificati in modo indipendente online, valutando gli interi
-          consecutivi a partire da <code>n = 0</code> e fermandosi al primo valore composto. Gli output
+          consecutivi a partire da <strong>n = 0</strong> e fermandosi al primo valore composto. Gli output
           di SageCell sono stati:
         </p>
 
         <ul>
-          <li><code>STOP n = 41, P(n) = 97697</code> per <strong>f(n)</strong></li>
-          <li><code>STOP n = 41, P(n) = 202801</code> per <strong>g(n)</strong></li>
+          <li><strong>STOP n = 41, P(n) = 97697</strong> per <strong>f(n)</strong></li>
+          <li><strong>STOP n = 41, P(n) = 202801</strong> per <strong>g(n)</strong></li>
         </ul>
 
         <h3>Primi valori composti a n = 41</h3>
@@ -365,19 +364,19 @@ check_run(lambda n: n^4 - 80*n^3 + 1911*n^2 - 12440*n + 188369)</code2></pre>
         </p>
 
         <p>
-          <code>Q(n) = P(n − 1).</code>
+          <strong>Q(n) = P(n − 1).</strong>
         </p>
 
         <p>
-          Se il valore aggiuntivo <code>P(−1)</code> risulta primo, allora la run di primi consecutivi
-          generata da <code>Q(n)</code>, valutata a partire da <code>n = 0</code>, risulta aumentata
-          di una unità rispetto a quella di <code>P(n)</code>.
+          Se il valore aggiuntivo <strong>P(−1)</strong> risulta primo, allora la run di primi consecutivi
+          generata da <strong>Q(n)</strong>, valutata a partire da <strong>n = 0</strong>, risulta aumentata
+          di una unità rispetto a quella di <strong>P(n)</strong>.
       </p>
 
         <h3>Connessione con i seed di Strategy A (L = 39)</h3>
         <p>
           Entrambi i polinomi con L = 41 emergono come discendenti di seed quartici individuati
-          dalla ricerca computazionale (Strategy A, sieve su <code>d</code>).
+          dalla ricerca computazionale (Strategy A, sieve su <strong>d</strong>).
         </p>
 
         <table class="genealogy-table">
