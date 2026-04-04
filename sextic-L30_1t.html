@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Sestico L=30 – Prime Generating Polynomial</title>
+<style>
+body {
+    font-family: "Times New Roman", serif;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.6;
+}
+h1, h2 {
+    text-align: center;
+}
+.polynomial {
+    text-align: center;
+    font-size: 20px;
+    margin: 20px 0;
+}
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+td, th {
+    border: 1px solid #444;
+    padding: 6px 10px;
+    text-align: right;
+}
+th {
+    background-color: #eee;
+}
+.center {
+    text-align: center;
+}
+.highlight {
+    color: darkred;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Sestico Monico Canonico con L = 30</h1>
+
+<p class="center">
+Scoperto da <b>Paolo Borghi</b> (2026)
+</p>
+
+<div class="polynomial">
+P(n) = n⁶ − 91n⁵ + 3437n⁴ − 68961n³ + 775184n² − 4628206n + 11465323
+</div>
+
+<h2>Proprietà</h2>
+
+<ul>
+<li>Grado: 6 (sestico monico)</li>
+<li>Lunghezza primi consecutivi: <b>L = 30</b></li>
+<li>Dominio: n ≥ 0</li>
+<li>Condizione: solo valori positivi primi (forma canonica)</li>
+</ul>
+
+---
+
+<h2>Sequenza dei primi generati</h2>
+
+<table>
+<tr><th>n</th><th>P(n)</th></tr>
+
+<tr><td>0</td><td>11465323</td></tr>
+<tr><td>1</td><td>7546687</td></tr>
+<tr><td>2</td><td>4810103</td></tr>
+<tr><td>3</td><td>2952427</td></tr>
+<tr><td>4</td><td>1732723</td></tr>
+<tr><td>5</td><td>963143</td></tr>
+<tr><td>6</td><td>500527</td></tr>
+<tr><td>7</td><td>238723</td></tr>
+<tr><td>8</td><td>101627</td></tr>
+<tr><td>9</td><td>36943</td></tr>
+<tr><td>10</td><td>10663</td></tr>
+<tr><td>11</td><td>2267</td></tr>
+<tr><td>12</td><td>643</td></tr>
+<tr><td>13</td><td>727</td></tr>
+<tr><td>14</td><td>863</td></tr>
+<tr><td>15</td><td>883</td></tr>
+<tr><td>16</td><td>907</td></tr>
+<tr><td>17</td><td>863</td></tr>
+<tr><td>18</td><td>727</td></tr>
+<tr><td>19</td><td>1483</td></tr>
+<tr><td>20</td><td>6803</td></tr>
+<tr><td>21</td><td>25447</td></tr>
+<tr><td>22</td><td>74383</td></tr>
+<tr><td>23</td><td>182627</td></tr>
+<tr><td>24</td><td>395803</td></tr>
+<tr><td>25</td><td>781423</td></tr>
+<tr><td>26</td><td>1434887</td></tr>
+<tr><td>27</td><td>2486203</td></tr>
+<tr><td>28</td><td>4107427</td></tr>
+<tr><td>29</td><td>6520823</td></tr>
+
+</table>
+
+---
+
+<h2>Punto di arresto</h2>
+
+<p class="center">
+<span class="highlight">
+P(30) = 10007743 = 1091 × 9173
+</span>
+</p>
+
+---
+
+<h2>Analisi genealogica</h2>
+
+<ul>
+<li>Il polinomio ha L = 30</li>
+<li>Il valore P(-1) è composto ⇒ nessun figlio effettivo</li>
+<li>Questo polinomio è una <b>cima genealogica</b></li>
+<li>La linea genealogica termina qui nel verso n → n−1</li>
+</ul>
+
+---
+
+<h2>Verifica (PARI/GP)</h2>
+
+<pre>
+P(n)=n^6-91*n^5+3437*n^4-68961*n^3+775184*n^2-4628206*n+11465323;
+
+for(n=0,40,
+  if(!isprime(P(n)),
+    print("STOP n=",n," P(n)=",P(n)," factor=",factor(P(n)));
+    break;
+  );
+  print(n," OK ",P(n));
+);
+
+print("P(-1)=",P(-1)," factor=",factor(P(-1)));
+</pre>
+
+---
+
+<h2>Osservazioni</h2>
+
+<ul>
+<li>Sequenza quasi simmetrica nella regione centrale</li>
+<li>Compressione dei valori vicino al minimo</li>
+<li>Tipico comportamento dei polinomi record di grado ≥ 4</li>
+</ul>
+
+---
+
+<h2>Prospettiva di ricerca</h2>
+
+<p>
+Questo risultato suggerisce una regione promettente nello spazio dei coefficienti per la ricerca di polinomi sestici con L ≥ 31.
+</p>
+
+---
+
+<p class="center">
+© Paolo Borghi – Prime Generating Polynomials Project
+</p>
+
+</body>
+</html>
