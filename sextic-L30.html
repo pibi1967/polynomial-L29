@@ -5,256 +5,340 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Polynomial (L = 30) – Canonical Monic Record</title>
   <style>
-    :root {
-      --bg: #eef2f7;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #4b5563;
-      --border: #d7dde7;
-      --accent: #2f6df6;
-      --formula: #081835;
-      --formula-pill: #d7e5ff;
-      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
-      --radius: 16px;
+    :root{
+      --bg:#eef1f5;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#4b5563;
+      --line:#d7dde6;
+      --blue:#2f6df6;
+      --navy:#0f1d3d;
+      --pill:#cfe0ff;
+      --gold:#f3c623;
+      --shadow:0 2px 10px rgba(24,39,75,.08);
+      --radius:16px;
     }
 
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
-    .hero {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      margin: 0 0 6px;
-      font-size: clamp(2.3rem, 4vw, 3rem);
-      line-height: 1.15;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-    .hero .sub {
-      margin: 0;
-      font-size: 1.05rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-    .hero .meta {
-      margin-top: 6px;
-      color: #6b7280;
-      font-size: 1rem;
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height:1.65;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 28px;
-      align-items: start;
+    .wrap{
+      max-width:1100px;
+      margin:24px auto 48px;
+      padding:0 18px;
     }
-    .stack {
-      display: grid;
-      gap: 22px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px 26px;
-    }
-    .card h2, .card h3 {
-      margin-top: 0;
-      color: #242a33;
-    }
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-    .section-title::before {
-      content: "";
-      width: 4px;
-      height: 30px;
-      border-radius: 2px;
-      background: var(--accent);
-      display: inline-block;
-    }
-    .formula-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-    .formula {
-      background: var(--formula);
-      color: #f8fafc;
-      border-radius: 10px;
-      padding: 13px 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
-    }
-    .pill {
-      background: var(--formula-pill);
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-    p { margin: 0 0 14px; }
-    .mono-inline {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      background: #f3f4f6;
-      padding: 1px 6px;
-      border-radius: 6px;
-    }
-    .mono-block {
-      background: #f7f8fb;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      overflow-x: auto;
-    }
-    .seq {
-      background: var(--formula);
-      color: #eef2ff;
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-    .summary h2 {
-      font-size: 1.05rem;
-      margin-bottom: 16px;
-    }
-    .summary-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 18px;
-    }
-    .summary-table td {
-      padding: 8px 0;
-      vertical-align: top;
-      border-bottom: 1px solid #eef2f7;
-    }
-    .summary-table td:first-child {
-      color: #374151;
-      font-weight: 700;
-      width: 38%;
-      padding-right: 12px;
-    }
-    .zenodo {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin: 2px 0 12px;
-      font-size: 0.88rem;
-      font-weight: 800;
-    }
-    .zenodo .tag {
-      background: #f2b705;
-      color: #1f2937;
-      padding: 3px 8px;
-      border-radius: 999px;
-      letter-spacing: 0.02em;
-    }
-    .zenodo .doi-label {
-      background: #4b5563;
-      color: white;
-      padding: 3px 6px;
-      border-radius: 4px 0 0 4px;
-      margin-left: 2px;
-    }
-    .zenodo .doi-value {
-      background: #1d76d3;
-      color: white;
-      padding: 3px 8px;
-      border-radius: 0 4px 4px 0;
-    }
-    .citation-box {
-      background: #f3f4f6;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.95rem;
-      color: #1f2937;
-      overflow-wrap: anywhere;
-      margin-bottom: 14px;
-    }
-    .related-title {
-      margin: 8px 0 8px;
-      font-size: 0.98rem;
-      font-weight: 400;
-    }
-    .links {
-      display: grid;
-      gap: 4px;
-    }
-    .links a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 700;
-    }
-    .links a:hover { text-decoration: underline; }
-    .small { color: #6b7280; font-size: 0.96rem; }
 
-    .grid {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) 280px;
-  gap: 28px;
-}
+    .hero{
+      text-align:center;
+      margin-bottom:22px;
+    }
 
-.stack {
-  display: grid;
-  gap: 22px;
-  min-width: 0;   /* ⭐ FIX CRITICO */
-}
+    h1{
+      margin:0 0 6px;
+      font-size:3rem;
+      line-height:1.08;
+      letter-spacing:-0.03em;
+      font-weight:800;
+      color:#242a33;
+    }
 
-.formula {
-  background: var(--navy);
-  color: #fff;
-  border-radius: 10px;
-  padding: 13px 16px;
-  font-family: monospace;
-  overflow-x: auto;   /* ⭐ FIX */
-  max-width: 100%;    /* ⭐ FIX */
-  white-space: nowrap;/* ⭐ FIX */
-}
+    .subtitle{
+      font-size:1.08rem;
+      color:#4b5563;
+      font-weight:600;
+      margin-bottom:6px;
+    }
 
-    @media (max-width: 920px) {
-      .grid { grid-template-columns: 1fr; }
+    .meta{
+      color:#5b6470;
+      font-size:0.98rem;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 280px;
+      gap:28px;
+      align-items:start;
+    }
+
+    .stack{
+      display:grid;
+      gap:22px;
+      min-width:0;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px 26px 22px;
+    }
+
+    .section-title{
+      font-size:1.05rem;
+      font-weight:800;
+      margin:2px 0 18px;
+      padding-left:12px;
+      border-left:4px solid var(--blue);
+      color:#242a33;
+    }
+
+    .formula-row{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:12px;
+      margin:8px 0 16px;
+      min-width:0;
+    }
+
+    .formula{
+      display:block;
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      background:var(--navy);
+      color:#fff;
+      border-radius:10px;
+      padding:13px 16px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size:1.05rem;
+      font-weight:700;
+      letter-spacing:.01em;
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+
+    .pill{
+      background:var(--pill);
+      color:var(--blue);
+      border-radius:999px;
+      padding:8px 14px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    p{margin:0 0 12px}
+
+    h3{
+      font-size:1rem;
+      margin:22px 0 10px;
+      color:#2b313b;
+    }
+
+    code{
+      background:#f3f4f6;
+      padding:1px 5px;
+      border-radius:6px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:.95em;
+    }
+
+    pre{
+      margin:10px 0 0;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px 16px;
+      overflow:auto;
+      font-size:.94rem;
+      line-height:1.55;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .sequence{
+      background:var(--navy);
+      color:#fff;
+      border-radius:10px;
+      padding:14px 16px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:1rem;
+      overflow:auto;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .sidebar{
+      min-width:0;
+    }
+
+    .sidebar .card{
+      padding:18px 20px;
+    }
+
+    .summary-title{
+      font-size:1rem;
+      font-weight:800;
+      margin:0 0 12px;
+      color:#2a3038;
+    }
+
+    .summary-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:18px;
+    }
+
+    .summary-table td{
+      padding:7px 0;
+      vertical-align:top;
+      border-bottom:1px solid #edf0f4;
+    }
+
+    .summary-table tr:last-child td{
+      border-bottom:none;
+    }
+
+    .summary-table td:first-child{
+      width:38%;
+      color:#374151;
+      font-weight:700;
+      padding-right:10px;
+    }
+
+    .summary-table td:last-child{
+      color:#1f2937;
+      word-break:break-word;
+    }
+
+    .zenodo-row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:4px 0 10px;
+    }
+
+    .badge{
+      display:inline-block;
+      border-radius:999px;
+      padding:4px 10px;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+
+    .badge.gold{
+      background:var(--gold);
+      color:#473200;
+    }
+
+    .badge.doi{
+      background:#2f6df6;
+      color:#fff;
+      border-radius:6px;
+      font-weight:700;
+      padding:4px 8px;
+    }
+
+    .citation{
+      background:#f3f4f6;
+      border-radius:8px;
+      padding:10px 12px;
+      font-size:.95rem;
+      overflow:hidden;
+    }
+
+    .citation a{
+      color:#0b57d0;
+      text-decoration:none;
+      word-break:break-all;
+    }
+
+    .related{
+      margin-top:14px;
+    }
+
+    .related a{
+      display:block;
+      color:#2563eb;
+      font-weight:700;
+      text-decoration:none;
+      margin:3px 0;
+    }
+
+    .related a:hover{
+      text-decoration:underline;
+    }
+
+    .footer{
+      text-align:center;
+      color:#6b7280;
+      margin-top:18px;
+      font-size:.95rem;
+    }
+
+    .tree-wrap{
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fbfcfe;
+      max-width:100%;
+    }
+
+    .tree-table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:820px;
+    }
+
+    .tree-table th,
+    .tree-table td{
+      padding:10px 12px;
+      border-bottom:1px solid #e8edf4;
+      vertical-align:top;
+      text-align:left;
+    }
+
+    .tree-table th{
+      background:#f3f6fb;
+      font-size:.95rem;
+    }
+
+    .tree-table tr:last-child td{
+      border-bottom:none;
+    }
+
+    .tree-table td:first-child,
+    .tree-table th:first-child{
+      width:70px;
+      text-align:center;
+      font-weight:800;
+    }
+
+    @media (max-width: 900px){
+      h1{
+        font-size:2.35rem;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header class="hero">
+    <div class="hero">
       <h1>Polynomial (L = 30) – Canonical Monic Record</h1>
-      <p class="sub">Monic sextic prime-generating polynomial in canonical form</p>
-      <p class="meta">Author: Paolo Borghi · Verified run: <strong>n = 0..29</strong> · Stop at <strong>n = 30</strong></p>
-    </header>
+      <div class="subtitle">Monic sextic prime-generating polynomial in canonical form</div>
+      <div class="meta">Author: Paolo Borghi · Verified run: <strong>n = 0..29</strong> · Stop at <strong>n = 30</strong></div>
+    </div>
 
     <div class="grid">
       <main class="stack">
         <section class="card">
           <div class="section-title">The Polynomial</div>
+
           <div class="formula-row">
             <div class="formula">P(n) = n^6 − 91n^5 + 3437n^4 − 68961n^3 + 775184n^2 − 4628206n + 11465323</div>
             <div class="pill">L = 30</div>
@@ -262,80 +346,158 @@
 
           <p>
             This monic sextic polynomial generates <strong>30 consecutive prime values</strong> in canonical form,
-            i.e. for <span class="mono-inline">n = 0,1,…,29</span>. The run stops because <span class="mono-inline">P(30)</span> is composite.
+            i.e. for <code>n = 0,1,…,29</code>. The run stops because <code>P(30)</code> is composite.
           </p>
 
           <h3>Termination</h3>
-          <p><span class="mono-inline">P(30) = 10007743</span> (composite).</p>
+          <p><code>P(30) = 10007743 = 1091 × 9173</code> (composite).</p>
 
-          <h3>Genealogical remark</h3>
+          <h3>Remark on centered structure</h3>
           <p>
-            Since <span class="mono-inline">P(-1) = 16941203 = 107 × 158329</span> is composite, this polynomial has no effective child.
-            Therefore it is a <strong>genealogical peak</strong> in its translation line.
+            The central part of the sequence is strikingly compressed: near the middle, the values become very small
+            and display an almost symmetric pattern
+            <code>643, 727, 863, 883, 907, 863, 727</code>.
           </p>
         </section>
 
         <section class="card">
           <div class="section-title">Prime Sequence (n = 0..29)</div>
-          <p>The 30 consecutive prime values generated by <span class="mono-inline">P(n)</span> in canonical form:</p>
-          <div class="seq">11465323, 7546687, 4810103, 2952427, 1732723, 963143, 500527, 238723, 101627, 36943,
+          <p>The 30 consecutive prime values generated by <code>P(n)</code> in canonical form:</p>
+          <div class="sequence">11465323, 7546687, 4810103, 2952427, 1732723, 963143, 500527, 238723, 101627, 36943,
 10663, 2267, 643, 727, 863, 883, 907, 863, 727, 1483,
 6803, 25447, 74383, 182627, 395803, 781423, 1434887, 2486203, 4107427, 6520823</div>
         </section>
 
         <section class="card">
+          <div class="section-title">Translation Genealogy</div>
+
+          <p>
+            Since <code>P(-1)</code> is composite, this polynomial has <strong>no effective child</strong>
+            and is therefore a <strong>genealogical peak</strong> in the canonical monic setting.
+          </p>
+
+          <pre>P(-1) = 16941203 = 107 × 158329</pre>
+
+          <p>
+            The full unique ancestor chain is obtained by repeated shifts <code>n → n + 1</code>.
+            The table below lists the entire genealogical tree on this line, from the root <strong>L = 1</strong>
+            up to the peak <strong>L = 30</strong>.
+          </p>
+
+          <div class="tree-wrap">
+            <table class="tree-table">
+              <thead>
+                <tr><th>L</th><th>Monic sextic polynomial</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td><code>n^6 + 83n^5 + 2857n^4 + 52201n^3 + 533904n^2 + 2897874n + 6520823</code></td></tr>
+                <tr><td>2</td><td><code>n^6 + 77n^5 + 2457n^4 + 41583n^3 + 393628n^2 + 1975650n + 4107427</code></td></tr>
+                <tr><td>3</td><td><code>n^6 + 71n^5 + 2087n^4 + 32505n^3 + 282866n^2 + 1303694n + 2486203</code></td></tr>
+                <tr><td>4</td><td><code>n^6 + 65n^5 + 1747n^4 + 24847n^3 + 196652n^2 + 831586n + 1434887</code></td></tr>
+                <tr><td>5</td><td><code>n^6 + 59n^5 + 1437n^4 + 18489n^3 + 130580n^2 + 505164n + 781423</code></td></tr>
+                <tr><td>6</td><td><code>n^6 + 53n^5 + 1157n^4 + 13311n^3 + 81276n^2 + 290954n + 395803</code></td></tr>
+                <tr><td>7</td><td><code>n^6 + 47n^5 + 907n^4 + 9183n^3 + 47188n^2 + 157538n + 182627</code></td></tr>
+                <tr><td>8</td><td><code>n^6 + 41n^5 + 687n^4 + 6027n^3 + 25184n^2 + 78810n + 74383</code></td></tr>
+                <tr><td>9</td><td><code>n^6 + 35n^5 + 497n^4 + 3717n^3 + 12354n^2 + 34506n + 25447</code></td></tr>
+                <tr><td>10</td><td><code>n^6 + 29n^5 + 337n^4 + 2127n^3 + 5412n^2 + 11418n + 6803</code></td></tr>
+                <tr><td>11</td><td><code>n^6 + 23n^5 + 207n^4 + 1131n^3 + 1902n^2 + 2418n + 1483</code></td></tr>
+                <tr><td>12</td><td><code>n^6 + 17n^5 + 107n^4 + 603n^3 + 382n^2 + 162n + 727</code></td></tr>
+                <tr><td>13</td><td><code>n^6 + 11n^5 + 37n^4 + 287n^3 + 82n^2 + 126n + 863</code></td></tr>
+                <tr><td>14</td><td><code>n^6 + 5n^5 - 3n^4 + 153n^3 + 132n^2 + 319n + 907</code></td></tr>
+                <tr><td>15</td><td><code>n^6 - n^5 - 5n^4 + 5n^3 - 3n^2 + 307n + 883</code></td></tr>
+                <tr><td>16</td><td><code>n^6 - 7n^5 + 7n^4 + 99n^3 - 95n^2 - 31n + 863</code></td></tr>
+                <tr><td>17</td><td><code>n^6 - 13n^5 + 57n^4 - n^3 - 17n^2 + 151n + 727</code></td></tr>
+                <tr><td>18</td><td><code>n^6 - 19n^5 + 137n^4 - 635n^3 + 551n^2 - 859n + 643</code></td></tr>
+                <tr><td>19</td><td><code>n^6 - 25n^5 + 247n^4 - 1607n^3 + 2374n^2 - 3533n + 2267</code></td></tr>
+                <tr><td>20</td><td><code>n^6 - 31n^5 + 387n^4 - 3043n^3 + 6607n^2 - 14061n + 10663</code></td></tr>
+                <tr><td>21</td><td><code>n^6 - 37n^5 + 557n^4 - 5081n^3 + 13324n^2 - 31683n + 36943</code></td></tr>
+                <tr><td>22</td><td><code>n^6 - 43n^5 + 757n^4 - 7873n^3 + 24547n^2 - 68195n + 101627</code></td></tr>
+                <tr><td>23</td><td><code>n^6 - 49n^5 + 987n^4 - 11583n^3 + 42164n^2 - 135399n + 238723</code></td></tr>
+                <tr><td>24</td><td><code>n^6 - 55n^5 + 1247n^4 - 16377n^3 + 68539n^2 - 253863n + 500527</code></td></tr>
+                <tr><td>25</td><td><code>n^6 - 61n^5 + 1537n^4 - 22423n^3 + 106488n^2 - 454092n + 963143</code></td></tr>
+                <tr><td>26</td><td><code>n^6 - 67n^5 + 1857n^4 - 29889n^3 + 159380n^2 - 780156n + 1732723</code></td></tr>
+                <tr><td>27</td><td><code>n^6 - 73n^5 + 2207n^4 - 38943n^3 + 230407n^2 - 1292887n + 2952427</code></td></tr>
+                <tr><td>28</td><td><code>n^6 - 79n^5 + 2587n^4 - 49753n^3 + 323356n^2 - 2078270n + 4810103</code></td></tr>
+                <tr><td>29</td><td><code>n^6 - 85n^5 + 2997n^4 - 62487n^3 + 442820n^2 - 3271422n + 7546687</code></td></tr>
+                <tr><td>30</td><td><code>n^6 - 91n^5 + 3437n^4 - 68961n^3 + 775184n^2 - 4628206n + 11465323</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
           <div class="section-title">Reproducibility</div>
-          <p>PARI/GP verification script:</p>
-          <div class="mono-block">P(n)=n^6-91*n^5+3437*n^4-68961*n^3+775184*n^2-4628206*n+11465323;
+
+          <h3>PARI/GP</h3>
+          <pre>P(n)=n^6-91*n^5+3437*n^4-68961*n^3+775184*n^2-4628206*n+11465323;
 
 for(n=0,200,
   if(!isprime(P(n)),
-    print("STOP n=",n,"  P(n)=",P(n),"  factor=",factor(P(n)));
+    print("STOP n=",n,"  P(n)=",P(n),"  fact=",factor(P(n)));
     break
   )
 );
 
-print("P(-1)=",P(-1),"  factor=",factor(P(-1)));</div>
+print("P(-1)=",P(-1),"  fact=",factor(P(-1)));</pre>
+
+          <h3>SageMath / SageCell</h3>
+          <pre>def P(n):
+    return n^6 - 91*n^5 + 3437*n^4 - 68961*n^3 + 775184*n^2 - 4628206*n + 11465323
+
+for n in range(0, 200):
+    v = P(n)
+    if not is_prime(v):
+        print("STOP n =", n, " P(n) =", v, " factor =", factor(v))
+        break
+
+print("P(-1) =", P(-1), " factor =", factor(P(-1)))</pre>
         </section>
       </main>
 
-      <aside class="card summary">
-        <h2>Record Summary</h2>
-        <table class="summary-table">
-          <tr><td>Degree</td><td>6 (sextic)</td></tr>
-          <tr><td>Monic</td><td>Yes</td></tr>
-          <tr><td>Canonical</td><td>n = 0..</td></tr>
-          <tr><td>Run</td><td><strong>L = 30</strong></td></tr>
-          <tr><td>Stop</td><td>n = 30</td></tr>
-          <tr><td>Stop value</td><td>10007743 (comp.)</td></tr>
-          <tr><td>a,b,c,d,e,f</td><td>(−91, 3437, −68961, 775184, −4628206, 11465323)</td></tr>
-        </table>
+      <aside class="sidebar">
+        <section class="card">
+          <div class="summary-title">Record Summary</div>
+          <table class="summary-table">
+            <tr><td>Degree</td><td>6 (sextic)</td></tr>
+            <tr><td>Monic</td><td>Yes</td></tr>
+            <tr><td>Canonical</td><td>n = 0..</td></tr>
+            <tr><td>Run</td><td><strong>L = 30</strong></td></tr>
+            <tr><td>Stop</td><td>n = 30</td></tr>
+            <tr><td>Stop value</td><td>10007743 = 1091 × 9173</td></tr>
+            <tr><td>Peak status</td><td>Genealogical peak</td></tr>
+            <tr><td>P(-1)</td><td>16941203 = 107 × 158329</td></tr>
+            <tr><td>a,b,c,d,e,f</td><td>(−91, 3437, −68961, 775184, −4628206, 11465323)</td></tr>
+          </table>
 
-        <div class="zenodo">
-          <span class="tag">ZENODO</span>
-          <span class="doi-label">DOI</span><span class="doi-value">pending</span>
-        </div>
+          <div class="zenodo-row">
+            <span class="badge gold">ZENODO</span>
+            <span class="badge doi">DOI pending</span>
+          </div>
 
-        <div class="citation-box">
-          Borghi, P. (2026). A Monic Sextic Polynomial Generating 30 Consecutive Prime Values.
-          Zenodo. [Add DOI after publication.]
-        </div>
+          <div class="citation">
+            Borghi, P. (2026). <em>A Monic Sextic Polynomial Generating 30 Consecutive Prime Values.</em><br />
+            Zenodo record to be added here.<br />
+            <a href="#">https://doi.org/...</a>
+          </div>
 
-        <div class="related-title">Related pages:</div>
-        <div class="links">
-           <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/genealogy_theorem.html">Genealogy Theorem</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L54.html">Quartic L = 54</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L49.html">Quartic L = 49</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L41.html">Quartic L = 41</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L38.html">Quartic L = 38</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L37.html">Quartic L = 37</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/quartic-L33.html">Quartic L = 33</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L31.html">Cubic L = 31</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/">Cubic L = 30</a></strong>
-            <strong><a href="https://pibi1967.github.io/prime-generating-polynomials/cubic-L29.html">Cubic L = 29</a></strong>
-        </div>
+          <div class="related">
+            <p style="margin:14px 0 6px;"><strong>Related pages:</strong></p>
+            <a href="genealogy_theorem.html">Genealogy Theorem</a>
+            <a href="quartic-L54.html">Quartic L = 54</a>
+            <a href="quartic-L49.html">Quartic L = 49</a>
+            <a href="quartic-L41.html">Quartic L = 41</a>
+            <a href="quartic-L38.html">Quartic L = 38</a>
+            <a href="quartic-L37.html">Quartic L = 37</a>
+            <a href="quartic-L33.html">Quartic L = 33</a>
+            <a href="cubic-L31.html">Cubic L = 31</a>
+            <a href="cubic-L30.html">Cubic L = 30</a>
+            <a href="cubic-L29.html">Cubic L = 29</a>
+          </div>
+        </section>
       </aside>
     </div>
+
+    <div class="footer">Last updated: 2026 · Prime-generating polynomials · Paolo Borghi</div>
   </div>
 </body>
 </html>
