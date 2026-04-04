@@ -215,6 +215,29 @@
     .links a:hover { text-decoration: underline; }
     .small { color: #6b7280; font-size: 0.96rem; }
 
+    .grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 280px;
+  gap: 28px;
+}
+
+.stack {
+  display: grid;
+  gap: 22px;
+  min-width: 0;   /* ⭐ FIX CRITICO */
+}
+
+.formula {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-family: monospace;
+  overflow-x: auto;   /* ⭐ FIX */
+  max-width: 100%;    /* ⭐ FIX */
+  white-space: nowrap;/* ⭐ FIX */
+}
+
     @media (max-width: 920px) {
       .grid { grid-template-columns: 1fr; }
     }
