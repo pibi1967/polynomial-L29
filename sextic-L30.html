@@ -9,7 +9,6 @@
       --bg:#eef1f5;
       --card:#ffffff;
       --text:#1f2937;
-      --muted:#4b5563;
       --line:#d7dde6;
       --blue:#2f6df6;
       --navy:#0f1d3d;
@@ -18,9 +17,7 @@
       --shadow:0 2px 10px rgba(24,39,75,.08);
       --radius:16px;
     }
-
     *{box-sizing:border-box}
-
     body{
       margin:0;
       background:var(--bg);
@@ -28,18 +25,15 @@
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       line-height:1.65;
     }
-
     .wrap{
       max-width:1100px;
       margin:24px auto 48px;
       padding:0 18px;
     }
-
     .hero{
       text-align:center;
       margin-bottom:22px;
     }
-
     h1{
       margin:0 0 6px;
       font-size:3rem;
@@ -48,14 +42,12 @@
       font-weight:800;
       color:#242a33;
     }
-
     .subtitle{
       font-size:1.08rem;
       color:#4b5563;
       font-weight:600;
       margin-bottom:6px;
     }
-
     .meta{
       color:#5b6470;
       font-size:0.98rem;
@@ -67,10 +59,12 @@
       gap:28px;
       align-items:start;
     }
-
     .stack{
+      min-width:0;
       display:grid;
       gap:22px;
+    }
+    .sidebar{
       min-width:0;
     }
 
@@ -80,6 +74,11 @@
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       padding:20px 26px 22px;
+      overflow:hidden;
+      max-width:100%;
+    }
+    .sidebar .card{
+      padding:18px 20px;
     }
 
     .section-title{
@@ -95,28 +94,32 @@
       display:flex;
       flex-direction:column;
       align-items:flex-start;
-      gap:12px;
+      gap:14px;
       margin:8px 0 16px;
       min-width:0;
+      max-width:100%;
     }
-
-    .formula{
-      display:block;
+    .formula-shell{
       width:100%;
       max-width:100%;
-      min-width:0;
-      background:var(--navy);
-      color:#fff;
+      overflow-x:auto;
+      overflow-y:hidden;
       border-radius:10px;
+      background:var(--navy);
+      -webkit-overflow-scrolling:touch;
+    }
+    .formula{
+      display:inline-block;
+      min-width:max-content;
       padding:13px 16px;
+      color:#fff;
       font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
       font-size:1.05rem;
       font-weight:700;
       letter-spacing:.01em;
-      overflow-x:auto;
       white-space:nowrap;
+      background:var(--navy);
     }
-
     .pill{
       background:var(--pill);
       color:var(--blue);
@@ -127,13 +130,11 @@
     }
 
     p{margin:0 0 12px}
-
     h3{
       font-size:1rem;
       margin:22px 0 10px;
       color:#2b313b;
     }
-
     code{
       background:#f3f4f6;
       padding:1px 5px;
@@ -141,7 +142,6 @@
       font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size:.95em;
     }
-
     pre{
       margin:10px 0 0;
       background:#f8fafc;
@@ -154,7 +154,6 @@
       white-space:pre-wrap;
       word-break:break-word;
     }
-
     .sequence{
       background:var(--navy);
       color:#fff;
@@ -167,44 +166,31 @@
       word-break:break-word;
     }
 
-    .sidebar{
-      min-width:0;
-    }
-
-    .sidebar .card{
-      padding:18px 20px;
-    }
-
     .summary-title{
       font-size:1rem;
       font-weight:800;
       margin:0 0 12px;
       color:#2a3038;
     }
-
     .summary-table{
       width:100%;
       border-collapse:collapse;
       margin-bottom:18px;
     }
-
     .summary-table td{
       padding:7px 0;
       vertical-align:top;
       border-bottom:1px solid #edf0f4;
     }
-
     .summary-table tr:last-child td{
       border-bottom:none;
     }
-
     .summary-table td:first-child{
       width:38%;
       color:#374151;
       font-weight:700;
       padding-right:10px;
     }
-
     .summary-table td:last-child{
       color:#1f2937;
       word-break:break-word;
@@ -217,7 +203,6 @@
       flex-wrap:wrap;
       margin:4px 0 10px;
     }
-
     .badge{
       display:inline-block;
       border-radius:999px;
@@ -226,12 +211,10 @@
       font-weight:800;
       letter-spacing:.02em;
     }
-
     .badge.gold{
       background:var(--gold);
       color:#473200;
     }
-
     .badge.doi{
       background:#2f6df6;
       color:#fff;
@@ -239,7 +222,6 @@
       font-weight:700;
       padding:4px 8px;
     }
-
     .citation{
       background:#f3f4f6;
       border-radius:8px;
@@ -247,17 +229,14 @@
       font-size:.95rem;
       overflow:hidden;
     }
-
     .citation a{
       color:#0b57d0;
       text-decoration:none;
       word-break:break-all;
     }
-
     .related{
       margin-top:14px;
     }
-
     .related a{
       display:block;
       color:#2563eb;
@@ -265,16 +244,8 @@
       text-decoration:none;
       margin:3px 0;
     }
-
     .related a:hover{
       text-decoration:underline;
-    }
-
-    .footer{
-      text-align:center;
-      color:#6b7280;
-      margin-top:18px;
-      font-size:.95rem;
     }
 
     .tree-wrap{
@@ -284,13 +255,11 @@
       background:#fbfcfe;
       max-width:100%;
     }
-
     .tree-table{
       width:100%;
       border-collapse:collapse;
       min-width:820px;
     }
-
     .tree-table th,
     .tree-table td{
       padding:10px 12px;
@@ -298,16 +267,13 @@
       vertical-align:top;
       text-align:left;
     }
-
     .tree-table th{
       background:#f3f6fb;
       font-size:.95rem;
     }
-
     .tree-table tr:last-child td{
       border-bottom:none;
     }
-
     .tree-table td:first-child,
     .tree-table th:first-child{
       width:70px;
@@ -315,14 +281,16 @@
       font-weight:800;
     }
 
-    @media (max-width: 900px){
-      h1{
-        font-size:2.35rem;
-      }
+    .footer{
+      text-align:center;
+      color:#6b7280;
+      margin-top:18px;
+      font-size:.95rem;
+    }
 
-      .grid{
-        grid-template-columns:1fr;
-      }
+    @media (max-width: 900px){
+      h1{font-size:2.35rem}
+      .grid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -340,7 +308,9 @@
           <div class="section-title">The Polynomial</div>
 
           <div class="formula-row">
-            <div class="formula">P(n) = n^6 − 91n^5 + 3437n^4 − 68961n^3 + 775184n^2 − 4628206n + 11465323</div>
+            <div class="formula-shell">
+              <div class="formula">P(n) = n^6 − 91n^5 + 3437n^4 − 68961n^3 + 775184n^2 − 4628206n + 11465323</div>
+            </div>
             <div class="pill">L = 30</div>
           </div>
 
@@ -368,7 +338,6 @@
 
         <section class="card">
           <div class="section-title">Translation Genealogy</div>
-
           <p>
             Since <code>P(-1)</code> is composite, this polynomial has <strong>no effective child</strong>
             and is therefore a <strong>genealogical peak</strong> in the canonical monic setting.
