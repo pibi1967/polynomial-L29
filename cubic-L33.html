@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cubic Polynomial (L = 33) – Canonical Monic Peak</title>
+  <meta name="description" content="A monic cubic polynomial generating 33 consecutive prime values in canonical form, with full translation genealogy and reproducible verification.">
+  <meta name="author" content="Paolo Borghi">
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --paper: #ffffff;
+      --text: #20242a;
+      --muted: #65707c;
+      --line: #dfe4ea;
+      --soft: #f1f4f7;
+      --accent: #1f5d45;
+      --accent-soft: #e9f3ee;
+      --code: #f5f7f9;
+      --shadow: 0 10px 30px rgba(25, 35, 45, .07);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--accent); }
+    .page {
+      max-width: 1040px;
+      margin: 42px auto;
+      background: var(--paper);
+      padding: 56px 64px 64px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .topnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      margin-bottom: 38px;
+      font-size: .94rem;
+    }
+    .topnav a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      margin: 0 0 10px;
+    }
+    .subtitle {
+      font-size: 1.16rem;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: .96rem;
+      margin-bottom: 34px;
+    }
+    h2 {
+      margin-top: 46px;
+      padding-top: 4px;
+      font-size: 1.65rem;
+      line-height: 1.2;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+    h3 {
+      margin-top: 28px;
+      font-size: 1.15rem;
+    }
+    .hero {
+      background: var(--accent-soft);
+      border: 1px solid #cfe3d7;
+      border-radius: 12px;
+      padding: 26px 28px;
+      margin: 28px 0 22px;
+    }
+    .poly {
+      font-family: "Times New Roman", Times, serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+      margin: 4px 0 8px;
+    }
+    .L {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+    .callout {
+      border-left: 4px solid var(--accent);
+      padding: 10px 18px;
+      margin: 22px 0;
+      background: #fbfcfc;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: var(--code);
+      padding: .12em .34em;
+      border-radius: 4px;
+      font-size: .93em;
+    }
+    pre {
+      background: #14181d;
+      color: #f1f4f6;
+      padding: 20px;
+      overflow-x: auto;
+      border-radius: 9px;
+      line-height: 1.48;
+    }
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    .prime-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 14px;
+      margin: 22px 0;
+    }
+    .prime-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 7px 10px;
+      background: var(--soft);
+      border-radius: 6px;
+      font-variant-numeric: tabular-nums;
+      font-size: .93rem;
+    }
+    .prime-item span { color: var(--muted); }
+    .compact-primes {
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .91rem;
+      background: var(--soft);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      margin: 18px 0 26px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .95rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 13px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      background: var(--soft);
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .genealogy td:first-child {
+      width: 72px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .genealogy tr:last-child {
+      background: var(--accent-soft);
+    }
+    .formula {
+      overflow-x: auto;
+      background: var(--soft);
+      border-radius: 8px;
+      padding: 15px 18px;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1.12rem;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .zenodo {
+      margin-top: 30px;
+      padding: 24px 26px;
+      background: var(--accent-soft);
+      border: 1px solid #cfe3d7;
+      border-radius: 10px;
+    }
+    .zenodo a.button {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 7px;
+      font-weight: 700;
+    }
+    footer {
+      margin-top: 46px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    @media (max-width: 760px) {
+      .page {
+        margin: 0;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        padding: 32px 20px 44px;
+      }
+      .prime-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topnav">
+      <a href="https://pibi1967.github.io/prime-generating-polynomials/">Prime-generating polynomials</a>
+      <a href="https://pibi1967.github.io/prime-generating-polynomials/genealogy_theorem.html">Genealogy Theorem</a>
+      <a href="https://pibi1967.github.io/prime-generating-polynomials/genealogical_dynamics.html">Genealogical Dynamics</a>
+    </nav>
+
+    <header>
+      <h1>Cubic Polynomial (L = 33) – Canonical Monic Peak</h1>
+      <p class="subtitle">Monic cubic prime-generating polynomial in canonical form</p>
+      <p class="meta">Author: Paolo Borghi · Verified run: n = 0..32 · Stop at n = 33 · Computational discovery: 3 September 2026</p>
+    </header>
+
+    <h2>The Polynomial</h2>
+    <section class="hero">
+      <div class="poly">P(n) = n³ + 17375n² − 67426n + 3247007</div>
+      <div class="L">L = 33</div>
+    </section>
+
+    <p>
+      This monic cubic polynomial generates 33 consecutive prime values in canonical form,
+      for <code>n = 0,1,…,32</code>. The run terminates at <code>n = 33</code>, where
+      <code>P(33)</code> is composite.
+    </p>
+
+    <h3>Termination</h3>
+    <p><code>P(33) = 19979261 = 149 × 134089</code> (composite).</p>
+
+    <h3>Genealogical peak</h3>
+    <p>
+      The value immediately preceding the canonical run is also composite:
+    </p>
+    <p><code>P(−1) = 3331807 = 173 × 19259</code>.</p>
+    <div class="callout">
+      Therefore the polynomial has no effective genealogical child and is a
+      <strong>genealogical peak</strong> in the canonical monic setting.
+    </div>
+
+    <h2>Prime Sequence (n = 0..32)</h2>
+    <p>The 33 consecutive prime values generated by <code>P(n)</code> are:</p>
+
+    <div class="prime-grid">
+      <div class="prime-item"><span>P(0)</span><strong>3247007</strong></div>
+<div class="prime-item"><span>P(1)</span><strong>3196957</strong></div>
+<div class="prime-item"><span>P(2)</span><strong>3181663</strong></div>
+<div class="prime-item"><span>P(3)</span><strong>3201131</strong></div>
+<div class="prime-item"><span>P(4)</span><strong>3255367</strong></div>
+<div class="prime-item"><span>P(5)</span><strong>3344377</strong></div>
+<div class="prime-item"><span>P(6)</span><strong>3468167</strong></div>
+<div class="prime-item"><span>P(7)</span><strong>3626743</strong></div>
+<div class="prime-item"><span>P(8)</span><strong>3820111</strong></div>
+<div class="prime-item"><span>P(9)</span><strong>4048277</strong></div>
+<div class="prime-item"><span>P(10)</span><strong>4311247</strong></div>
+<div class="prime-item"><span>P(11)</span><strong>4609027</strong></div>
+<div class="prime-item"><span>P(12)</span><strong>4941623</strong></div>
+<div class="prime-item"><span>P(13)</span><strong>5309041</strong></div>
+<div class="prime-item"><span>P(14)</span><strong>5711287</strong></div>
+<div class="prime-item"><span>P(15)</span><strong>6148367</strong></div>
+<div class="prime-item"><span>P(16)</span><strong>6620287</strong></div>
+<div class="prime-item"><span>P(17)</span><strong>7127053</strong></div>
+<div class="prime-item"><span>P(18)</span><strong>7668671</strong></div>
+<div class="prime-item"><span>P(19)</span><strong>8245147</strong></div>
+<div class="prime-item"><span>P(20)</span><strong>8856487</strong></div>
+<div class="prime-item"><span>P(21)</span><strong>9502697</strong></div>
+<div class="prime-item"><span>P(22)</span><strong>10183783</strong></div>
+<div class="prime-item"><span>P(23)</span><strong>10899751</strong></div>
+<div class="prime-item"><span>P(24)</span><strong>11650607</strong></div>
+<div class="prime-item"><span>P(25)</span><strong>12436357</strong></div>
+<div class="prime-item"><span>P(26)</span><strong>13257007</strong></div>
+<div class="prime-item"><span>P(27)</span><strong>14112563</strong></div>
+<div class="prime-item"><span>P(28)</span><strong>15003031</strong></div>
+<div class="prime-item"><span>P(29)</span><strong>15928417</strong></div>
+<div class="prime-item"><span>P(30)</span><strong>16888727</strong></div>
+<div class="prime-item"><span>P(31)</span><strong>17883967</strong></div>
+<div class="prime-item"><span>P(32)</span><strong>18914143</strong></div>
+    </div>
+
+    <p><strong>Compact form:</strong></p>
+    <div class="compact-primes">3247007, 3196957, 3181663, 3201131, 3255367, 3344377, 3468167, 3626743, 3820111, 4048277, 4311247, 4609027, 4941623, 5309041, 5711287, 6148367, 6620287, 7127053, 7668671, 8245147, 8856487, 9502697, 10183783, 10899751, 11650607, 12436357, 13257007, 14112563, 15003031, 15928417, 16888727, 17883967, 18914143.</div>
+
+    <h2>Form Found by the Search</h2>
+    <p>
+      The computational scan first identified the translated cubic line
+    </p>
+    <div class="formula">F(n) = n³ + 17381n² + 2086n + 3181663</div>
+    <p>
+      with a run of 33 consecutive prime values for
+      <code>n = −2,−1,…,30</code>. The translation
+      <code>P(n) = F(n − 2)</code> moves the run to the canonical interval
+      <code>n = 0,…,32</code> and yields the polynomial above.
+    </p>
+
+    <h2>Computational Strategy</h2>
+    <p>
+      The final search was carried out on centered representatives of monic cubic
+      genealogical lines of the form
+    </p>
+    <div class="formula">F(n) = n³ + An² + Bn + q, &nbsp; with q prime.</div>
+
+    <h3>First filter: modular obstructions for p ≤ 31</h3>
+    <p>
+      For a prime <em>p</em>, let <em>N</em><sub>p</sub>(F) denote the number of roots of
+      <em>F</em> modulo <em>p</em>. The search imposed
+      <code>Np(F) = 0</code> for every prime <code>p ≤ 31</code>.
+      In the numerical domain considered, the presence of a root modulo one of these
+      primes obstructs a block of 32 consecutive prime values, so this is a necessary
+      condition for the target <code>L ≥ 32</code>.
+    </p>
+
+    <h3>The 32-tuple filter</h3>
+    <p>For each prime <em>p</em>, define</p>
+    <div class="formula">
+      ν<sub>p,32</sub> = # { k mod p : F(k)F(k+1)···F(k+31) ≡ 0 (mod p) }.
+    </div>
+    <p>
+      If <code>νp,32 = p</code>, every possible starting residue class of a 32-value
+      window is obstructed modulo <em>p</em>, and the line can be discarded without
+      any primality test.
+    </p>
+    <p>
+      A cubic has at most three roots modulo <em>p</em>, and each root can obstruct at
+      most 32 starting residue classes. Hence complete coverage can occur only for
+      <code>p ≤ 96</code>. After the primes up to 31 have already been treated, it is
+      sufficient to test the new complete obstructions for primes from 37 to 89.
+    </p>
+
+    <h3>Modular indicators</h3>
+    <p>The general modular fertility indicator used in the search was</p>
+    <div class="formula">
+      S<sub>97</sub> = ∏<sub>p≤97</sub>
+      (1 − N<sub>p</sub>(F)/p) / (1 − 1/p).
+    </div>
+    <p>
+      To evaluate specifically the configuration of 32 consecutive values, the search
+      introduced
+    </p>
+    <div class="formula">
+      T<sub>32,251</sub> = ∏<sub>p≤251</sub>
+      (1 − ν<sub>p,32</sub>/p) / (1 − 1/p)<sup>32</sup>.
+    </div>
+    <p>
+      The second indicator was <strong>not</strong> used as a hard exclusion threshold.
+      After the necessary filters and the broad condition <code>S97 ≥ 6.30</code>, the
+      surviving lines were ranked by <code>T32,251</code> and tested in descending order.
+      Thus the predictor determined exploration priority, not final admissibility.
+    </p>
+
+    <h3>Predictor calibration</h3>
+    <p>
+      Before the final scan, a calibration experiment was performed on 5,503 lines
+      already compatible with a 32-tuple. In that sample, the Pearson correlations
+      with the maximum run length observed in the central region were approximately:
+    </p>
+    <div class="formula">
+      ρ(log S<sub>97</sub>, L) = 0.259,
+      &nbsp;&nbsp;
+      ρ(log T<sub>32,251</sub>, L) = 0.309.
+    </div>
+    <p>
+      In the top 1% of the distribution, <code>T32,251</code> concentrated 23 cases
+      with <code>L ≥ 10</code> and 3 cases with <code>L ≥ 15</code>, compared with
+      17 and 1 respectively for <code>S97</code>. These results were used only as
+      statistical evidence for search prioritization, not as a deterministic criterion.
+    </p>
+
+    <h3>Final scan</h3>
+    <p>The final search used:</p>
+    <p>
+      <code>12001 ≤ A ≤ 18000</code>,
+      <code>1800001 ≤ q ≤ 3400000</code> with <em>q</em> prime,
+      candidate starts <code>−256 ≤ k ≤ 256</code>,
+      and an initial target of <code>L = 32</code>.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Quantity</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Combinations examined</td><td>19,524,710,802,000</td></tr>
+          <tr><td>Survivors after the p ≤ 31 filter</td><td>441,375,416</td></tr>
+          <tr><td>Compatible with the 32-tuple</td><td>176,879,168</td></tr>
+          <tr><td>Lines entering the guided search</td><td>165,784,253</td></tr>
+          <tr><td>Candidate starts after sieving</td><td>106,806,941</td></tr>
+          <tr><td>Values submitted to Miller–Rabin</td><td>126,571,360</td></tr>
+          <tr><td>Scan time</td><td>31.52 hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      The search engine targeted a window of 32 prime values. The discovered run contains
+      33 values; consequently, two overlapping 32-value windows were recorded and later
+      recognized as belonging to the same maximum run <code>L = 33</code>.
+    </p>
+    <p>
+      For the discovered line:
+      <code>S97 = 7.360820004764</code>,
+      <code>log T32,251 = 65.463520889549</code>.
+    </p>
+
+    <h2>Translation Genealogy</h2>
+    <p>
+      The unique ancestor chain is obtained by repeated translations <code>n → n + 1</code>.
+      The table below gives the complete genealogy from the root <code>L = 1</code>
+      to the peak <code>L = 33</code>.
+    </p>
+
+    <div class="table-wrap">
+      <table class="genealogy">
+        <thead>
+          <tr><th>L</th><th>Monic cubic polynomial</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td><code>n³ + 17471n² + 1047646n + 18914143</code></td></tr>
+<tr><td>2</td><td><code>n³ + 17468n² + 1012707n + 17883967</code></td></tr>
+<tr><td>3</td><td><code>n³ + 17465n² + 977774n + 16888727</code></td></tr>
+<tr><td>4</td><td><code>n³ + 17462n² + 942847n + 15928417</code></td></tr>
+<tr><td>5</td><td><code>n³ + 17459n² + 907926n + 15003031</code></td></tr>
+<tr><td>6</td><td><code>n³ + 17456n² + 873011n + 14112563</code></td></tr>
+<tr><td>7</td><td><code>n³ + 17453n² + 838102n + 13257007</code></td></tr>
+<tr><td>8</td><td><code>n³ + 17450n² + 803199n + 12436357</code></td></tr>
+<tr><td>9</td><td><code>n³ + 17447n² + 768302n + 11650607</code></td></tr>
+<tr><td>10</td><td><code>n³ + 17444n² + 733411n + 10899751</code></td></tr>
+<tr><td>11</td><td><code>n³ + 17441n² + 698526n + 10183783</code></td></tr>
+<tr><td>12</td><td><code>n³ + 17438n² + 663647n + 9502697</code></td></tr>
+<tr><td>13</td><td><code>n³ + 17435n² + 628774n + 8856487</code></td></tr>
+<tr><td>14</td><td><code>n³ + 17432n² + 593907n + 8245147</code></td></tr>
+<tr><td>15</td><td><code>n³ + 17429n² + 559046n + 7668671</code></td></tr>
+<tr><td>16</td><td><code>n³ + 17426n² + 524191n + 7127053</code></td></tr>
+<tr><td>17</td><td><code>n³ + 17423n² + 489342n + 6620287</code></td></tr>
+<tr><td>18</td><td><code>n³ + 17420n² + 454499n + 6148367</code></td></tr>
+<tr><td>19</td><td><code>n³ + 17417n² + 419662n + 5711287</code></td></tr>
+<tr><td>20</td><td><code>n³ + 17414n² + 384831n + 5309041</code></td></tr>
+<tr><td>21</td><td><code>n³ + 17411n² + 350006n + 4941623</code></td></tr>
+<tr><td>22</td><td><code>n³ + 17408n² + 315187n + 4609027</code></td></tr>
+<tr><td>23</td><td><code>n³ + 17405n² + 280374n + 4311247</code></td></tr>
+<tr><td>24</td><td><code>n³ + 17402n² + 245567n + 4048277</code></td></tr>
+<tr><td>25</td><td><code>n³ + 17399n² + 210766n + 3820111</code></td></tr>
+<tr><td>26</td><td><code>n³ + 17396n² + 175971n + 3626743</code></td></tr>
+<tr><td>27</td><td><code>n³ + 17393n² + 141182n + 3468167</code></td></tr>
+<tr><td>28</td><td><code>n³ + 17390n² + 106399n + 3344377</code></td></tr>
+<tr><td>29</td><td><code>n³ + 17387n² + 71622n + 3255367</code></td></tr>
+<tr><td>30</td><td><code>n³ + 17384n² + 36851n + 3201131</code></td></tr>
+<tr><td>31</td><td><code>n³ + 17381n² + 2086n + 3181663</code></td></tr>
+<tr><td>32</td><td><code>n³ + 17378n² − 32673n + 3196957</code></td></tr>
+<tr><td>33</td><td><code>n³ + 17375n² − 67426n + 3247007</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Reproducibility</h2>
+    <h3>PARI/GP</h3>
+    <pre><code>P(n)=n^3+17375*n^2-67426*n+3247007;
+
+for(n=0,200,
+  if(!isprime(P(n)),
+    print("STOP n=",n," P(n)=",P(n)," fact=",factor(P(n)));
+    break
+  )
+);
+
+print("P(-1)=",P(-1)," fact=",factor(P(-1)));</code></pre>
+
+    <p>Expected output:</p>
+    <pre><code>STOP n=33 P(n)=19979261 fact=[149,1; 134089,1]
+P(-1)=3331807 fact=[173,1; 19259,1]</code></pre>
+
+    <h2>Summary</h2>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th>Degree</th><td>3 (cubic)</td></tr>
+          <tr><th>Monic</th><td>Yes</td></tr>
+          <tr><th>Canonical interval</th><td>n = 0..32</td></tr>
+          <tr><th>Run</th><td>L = 33</td></tr>
+          <tr><th>Stop</th><td>n = 33</td></tr>
+          <tr><th>Stop value</th><td>19979261 = 149 × 134089</td></tr>
+          <tr><th>Peak status</th><td>Genealogical peak</td></tr>
+          <tr><th>P(−1)</th><td>3331807 = 173 × 19259</td></tr>
+          <tr><th>Coefficients (a,b,c)</th><td>(17375, −67426, 3247007)</td></tr>
+          <tr><th>Computational discovery</th><td>3 September 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Note on Optimality</h2>
+    <div class="callout">
+      This page documents a verified canonical run of 33 consecutive prime values for a
+      monic cubic polynomial. No claim is made here that <code>L = 33</code> is the
+      absolute maximum possible, nor that no other examples with equal or greater run
+      length exist in the literature or in independent searches.
+    </div>
+
+    <h2>Zenodo</h2>
+    <section class="zenodo">
+      <strong>A Monic Cubic Polynomial Generating 33 Consecutive Prime Values</strong>
+      <p>
+        Full note, complete computational documentation, genealogy and reproducible verification.
+      </p>
+      <a class="button" href="https://zenodo.org/records/22282558" target="_blank" rel="noopener">
+        Zenodo record 22282558
+      </a>
+    </section>
+
+    <h2>Related Work</h2>
+    <ul>
+      <li><a href="https://pibi1967.github.io/prime-generating-polynomials/genealogy_theorem.html">Genealogy Theorem for Monic Prime-Generating Polynomials</a></li>
+      <li><a href="https://pibi1967.github.io/prime-generating-polynomials/genealogical_dynamics.html">Genealogical Dynamics of Monic Prime-Generating Polynomials</a></li>
+      <li><a href="https://pibi1967.github.io/prime-generating-polynomials/sextic-L36.html">A monic sextic polynomial with L = 36</a></li>
+    </ul>
+
+    <footer>
+      Last updated: 2026 · Prime-generating polynomials · Paolo Borghi
+    </footer>
+  </main>
+</body>
+</html>
