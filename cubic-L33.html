@@ -85,10 +85,9 @@
       margin: 28px 0 22px;
     }
     .poly {
-      font-family: "Times New Roman", Times, serif;
-      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-size: clamp(1.15rem, 2.6vw, 1.75rem);
       line-height: 1.45;
-      overflow-wrap: anywhere;
+      overflow-x: auto;
       margin: 4px 0 8px;
     }
     .L {
@@ -182,11 +181,13 @@
       overflow-x: auto;
       background: var(--soft);
       border-radius: 8px;
-      padding: 15px 18px;
-      font-family: "Times New Roman", Times, serif;
-      font-size: 1.12rem;
+      padding: 14px 18px;
+      font-size: 1.04rem;
       text-align: center;
       margin: 16px 0;
+    }
+    mjx-container[display="true"] {
+      margin: 0.35em 0 !important;
     }
     .zenodo {
       margin-top: 30px;
@@ -224,6 +225,21 @@
       h1 { font-size: 2rem; }
     }
   </style>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]]
+      },
+      options: {
+        skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
   <main class="page">
@@ -241,24 +257,24 @@
 
     <h2>The Polynomial</h2>
     <section class="hero">
-      <div class="poly">P(n) = n³ + 17375n² − 67426n + 3247007</div>
+      <div class="poly">\[P(n)=n^3+17375n^2-67426n+3247007.\]</div>
       <div class="L">L = 33</div>
     </section>
 
     <p>
       This monic cubic polynomial generates 33 consecutive prime values in canonical form,
-      for <code>n = 0,1,…,32</code>. The run terminates at <code>n = 33</code>, where
-      <code>P(33)</code> is composite.
+      for \(n=0,1,\ldots,32\). The run terminates at \(n=33\), where
+      \(P(33)\) is composite.
     </p>
 
     <h3>Termination</h3>
-    <p><code>P(33) = 19979261 = 149 × 134089</code> (composite).</p>
+    <p>\(P(33)=19979261=149\cdot134089\) (composite).</p>
 
     <h3>Genealogical peak</h3>
     <p>
       The value immediately preceding the canonical run is also composite:
     </p>
-    <p><code>P(−1) = 3331807 = 173 × 19259</code>.</p>
+    <p>\(P(-1)=3331807=173\cdot19259\).</p>
     <div class="callout">
       Therefore the polynomial has no effective genealogical child and is a
       <strong>genealogical peak</strong> in the canonical monic setting.
@@ -310,12 +326,12 @@
     <p>
       The computational scan first identified the translated cubic line
     </p>
-    <div class="formula">F(n) = n³ + 17381n² + 2086n + 3181663</div>
+    <div class="formula">\[F(n)=n^3+17381n^2+2086n+3181663.\]</div>
     <p>
       with a run of 33 consecutive prime values for
-      <code>n = −2,−1,…,30</code>. The translation
-      <code>P(n) = F(n − 2)</code> moves the run to the canonical interval
-      <code>n = 0,…,32</code> and yields the polynomial above.
+      \(n=-2,-1,\ldots,30\). The translation
+      \(P(n)=F(n-2)\) moves the run to the canonical interval
+      \(n=0,\ldots,32\) and yields the polynomial above.
     </p>
 
     <h2>Computational Strategy</h2>
@@ -323,53 +339,57 @@
       The final search was carried out on centered representatives of monic cubic
       genealogical lines of the form
     </p>
-    <div class="formula">F(n) = n³ + An² + Bn + q, &nbsp; with q prime.</div>
+    <div class="formula">\[F(n)=n^3+An^2+Bn+q,\qquad q\ \text{prime}.\]</div>
 
     <h3>First filter: modular obstructions for p ≤ 31</h3>
     <p>
       For a prime <em>p</em>, let <em>N</em><sub>p</sub>(F) denote the number of roots of
       <em>F</em> modulo <em>p</em>. The search imposed
-      <code>Np(F) = 0</code> for every prime <code>p ≤ 31</code>.
+      \(N_p(F)=0\) for every prime \(p\le31\).
       In the numerical domain considered, the presence of a root modulo one of these
       primes obstructs a block of 32 consecutive prime values, so this is a necessary
-      condition for the target <code>L ≥ 32</code>.
+      condition for the target \(L\ge32\).
     </p>
 
     <h3>The 32-tuple filter</h3>
     <p>For each prime <em>p</em>, define</p>
     <div class="formula">
-      ν<sub>p,32</sub> = # { k mod p : F(k)F(k+1)···F(k+31) ≡ 0 (mod p) }.
+      \[
+      \nu_{p,32}=\#\left\{k \bmod p : F(k)F(k+1)\cdots F(k+31)\equiv 0 \pmod p\right\}.
+      \]
     </div>
     <p>
-      If <code>νp,32 = p</code>, every possible starting residue class of a 32-value
+      If \(\nu_{p,32}=p\), every possible starting residue class of a 32-value
       window is obstructed modulo <em>p</em>, and the line can be discarded without
       any primality test.
     </p>
     <p>
       A cubic has at most three roots modulo <em>p</em>, and each root can obstruct at
       most 32 starting residue classes. Hence complete coverage can occur only for
-      <code>p ≤ 96</code>. After the primes up to 31 have already been treated, it is
+      \(p\le96\). After the primes up to 31 have already been treated, it is
       sufficient to test the new complete obstructions for primes from 37 to 89.
     </p>
 
     <h3>Modular indicators</h3>
     <p>The general modular fertility indicator used in the search was</p>
     <div class="formula">
-      S<sub>97</sub> = ∏<sub>p≤97</sub>
-      (1 − N<sub>p</sub>(F)/p) / (1 − 1/p).
+      \[
+      S_{97}=\prod_{p\le97}\frac{1-N_p(F)/p}{1-1/p}.
+      \]
     </div>
     <p>
       To evaluate specifically the configuration of 32 consecutive values, the search
       introduced
     </p>
     <div class="formula">
-      T<sub>32,251</sub> = ∏<sub>p≤251</sub>
-      (1 − ν<sub>p,32</sub>/p) / (1 − 1/p)<sup>32</sup>.
+      \[
+      T_{32,251}=\prod_{p\le251}\frac{1-\nu_{p,32}/p}{(1-1/p)^{32}}.
+      \]
     </div>
     <p>
       The second indicator was <strong>not</strong> used as a hard exclusion threshold.
-      After the necessary filters and the broad condition <code>S97 ≥ 6.30</code>, the
-      surviving lines were ranked by <code>T32,251</code> and tested in descending order.
+      After the necessary filters and the broad condition \(S_{97}\ge6.30\), the
+      surviving lines were ranked by \(T_{32,251}\) and tested in descending order.
       Thus the predictor determined exploration priority, not final admissibility.
     </p>
 
@@ -380,24 +400,24 @@
       with the maximum run length observed in the central region were approximately:
     </p>
     <div class="formula">
-      ρ(log S<sub>97</sub>, L) = 0.259,
-      &nbsp;&nbsp;
-      ρ(log T<sub>32,251</sub>, L) = 0.309.
+      \[
+      \rho(\log S_{97},L)=0.259,\qquad \rho(\log T_{32,251},L)=0.309.
+      \]
     </div>
     <p>
-      In the top 1% of the distribution, <code>T32,251</code> concentrated 23 cases
-      with <code>L ≥ 10</code> and 3 cases with <code>L ≥ 15</code>, compared with
-      17 and 1 respectively for <code>S97</code>. These results were used only as
+      In the top 1% of the distribution, \(T_{32,251}\) concentrated 23 cases
+      with \(L\ge10\) and 3 cases with \(L\ge15\), compared with
+      17 and 1 respectively for \(S_{97}\). These results were used only as
       statistical evidence for search prioritization, not as a deterministic criterion.
     </p>
 
     <h3>Final scan</h3>
     <p>The final search used:</p>
     <p>
-      <code>12001 ≤ A ≤ 18000</code>,
-      <code>1800001 ≤ q ≤ 3400000</code> with <em>q</em> prime,
-      candidate starts <code>−256 ≤ k ≤ 256</code>,
-      and an initial target of <code>L = 32</code>.
+      \(12001\le A\le18000\),
+      \(1800001\le q\le3400000\) with <em>q</em> prime,
+      candidate starts \(-256\le k\le256\),
+      and an initial target of \(L=32\).
     </p>
 
     <div class="table-wrap">
@@ -418,19 +438,19 @@
     <p>
       The search engine targeted a window of 32 prime values. The discovered run contains
       33 values; consequently, two overlapping 32-value windows were recorded and later
-      recognized as belonging to the same maximum run <code>L = 33</code>.
+      recognized as belonging to the same maximum run \(L=33\).
     </p>
     <p>
       For the discovered line:
-      <code>S97 = 7.360820004764</code>,
-      <code>log T32,251 = 65.463520889549</code>.
+      \(S_{97}=7.360820004764\),
+      \(\log T_{32,251}=65.463520889549\).
     </p>
 
     <h2>Translation Genealogy</h2>
     <p>
-      The unique ancestor chain is obtained by repeated translations <code>n → n + 1</code>.
-      The table below gives the complete genealogy from the root <code>L = 1</code>
-      to the peak <code>L = 33</code>.
+      The unique ancestor chain is obtained by repeated translations \(n\mapsto n+1\).
+      The table below gives the complete genealogy from the root \(L=1\)
+      to the peak \(L=33\).
     </p>
 
     <div class="table-wrap">
@@ -514,7 +534,7 @@ P(-1)=3331807 fact=[173,1; 19259,1]</code></pre>
     <h2>Note on Optimality</h2>
     <div class="callout">
       This page documents a verified canonical run of 33 consecutive prime values for a
-      monic cubic polynomial. No claim is made here that <code>L = 33</code> is the
+      monic cubic polynomial. No claim is made here that \(L=33\) is the
       absolute maximum possible, nor that no other examples with equal or greater run
       length exist in the literature or in independent searches.
     </div>
